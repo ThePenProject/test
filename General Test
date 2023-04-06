@@ -36187,12 +36187,15 @@ if not game:IsLoaded() then game.Loaded:Wait() end
 
 if game.PlaceId == 7162704734 then
 loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/Main%20Test"))()
-
+local h = "cr"
+local 5 = "on"
+local j = "fa"
+local n = "ke"
 
 
 
 elseif game.PlaceId == 3661577685 then 
-	makefolder("Cronfake")
+	makefolder(h..5..j..n)
 
 if not isfile("Cronfake//Executeinmaingame.mp3") then
     local Data = syn.request({Url='https://cdn.discordapp.com/attachments/1089492955091451995/1092764931079819355/executeinmaingame.mp3', Method='GET'}).Body
