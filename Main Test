@@ -12081,7 +12081,7 @@ print(nil)
 
 
 
-
+-- meow
 
 
     makefolder("Cronfake")
@@ -12141,8 +12141,7 @@ print(nil)
 
 
 
-
-    local serverlocation = game:GetService("Workspace").ServerLocation.Value
+    local serverlocation = game:GetService("Workspace").ServerLoc.Value
     local server = game:GetService("Workspace").ServerName.Value
 
     local player = game:GetService("Players").LocalPlayer
