@@ -12213,18 +12213,6 @@
 
 
 
-
-
-    for _, descendant in pairs(workspace:GetDescendants()) do
-        if descendant.Name == "ban" then
-            descendant.Parent:Destroy()
-        end
-    end
-
-
-
-
-
     shared.spk=false
     local a,r=game:service'Players',game:service'RunService'
     local b,c=a.LocalPlayer
