@@ -14111,50 +14111,6 @@ end)
 
 
 
-_G.hide = false
-
-local connection
-connection = RunService.RenderStepped:Connect(function()
-if (not _G.hide) then return end
-
-
-for _, descendant in pairs(workspace.Live:GetDescendants()) do
-    if descendant.Name == "FakeHumanoid" then
-        descendant.Parent.Name = ""
-    end
-end
-
-
-    workspace.Live.DescendantAdded:Connect(function(Descendant)
-        if Descendant:IsA("FakeHumanoid") then
-           Descendant.Parent.Name = ""
-        end
-    end)
-
-    
-
-end)
-
-
-
-
-local hide = Section3:AddToggle("Hide Names", false, function(v)
-    if v then
-        _G.hide = true
-                    else
-                    _G.hide = false
-                    end
-end)
-
-hide:AddKeybind()
-
-
-
-
-
-
-
-
 
 
 Cronfake:CreateConfigSystem("right") --this is the config system
