@@ -12236,21 +12236,6 @@ name = "Location:",
 
 
 
-for _, descendant in pairs(workspace["Forest Zone"]:GetDescendants()) do
-    if descendant.Name == "ban" then
-        descendant.Parent.CanCollide = false
-          descendant.Parent.CanTouch = false
-
-    end
-end
-
-
-
-
-
-
-
-
 
 
 
