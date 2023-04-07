@@ -789,9 +789,78 @@ end)
 
 
 
+_G.nostun = false
+local LP = game:GetService("Players").LocalPlayer
+
+
+local RunService = game:GetService("RunService")
+local connection
+connection = RunService.RenderStepped:Connect(function()
+if (not _G.nostun) then return end
+            if       LP.Character.Values.Running.Value == true   then 
+            LP.Character.Humanoid.WalkSpeed = 26
+            LP.Character.Humanoid.JumpPower = 50
+        else
+            LP.Character.Humanoid.WalkSpeed = 17
+                    LP.Character.Humanoid.JumpPower = 50
+        end
+end)
 
 
 
+
+
+
+local nostun = Section2:AddToggle("No Stun", false, function(v)
+    if v then
+        _G.nostun = true
+                    else
+                    _G.nostun = false
+                    end
+end)
+
+nostun:AddKeybind()
+
+
+
+
+
+Section5:AddTextbox("First Name:",  game:GetService("Players").LocalPlayer.leaderstats.FirstName.Value, function(State)
+    
+    game:GetService("Players").LocalPlayer.leaderstats.FirstName.Value = State
+
+    getgenv()['IrisAd'] = true
+    local Notification = loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisBetterNotifications.lua"))()
+
+    Notification.Notify("Hi, "..State..".", "It's nice to meet you!", "rbxassetid://4914902889" ); -- the rbx is the image id
+
+end)
+
+
+
+
+Section5:AddTextbox("Last Name:",  game:GetService("Players").LocalPlayer.leaderstats.LastName.Value, function(State)
+   
+    game:GetService("Players").LocalPlayer.leaderstats.LastName.Value = State
+
+    getgenv()['IrisAd'] = true
+    local Notification = loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisBetterNotifications.lua"))()
+
+    Notification.Notify("Hi,Mr. "..State..".", "It's nice to meet you!", "rbxassetid://4914902889" ); -- the rbx is the image id
+
+end)
+
+
+Section5:AddTextbox("Title:", game:GetService("Players").LocalPlayer.leaderstats.Title.Value, function(State)
+     
+    game:GetService("Players").LocalPlayer.leaderstats.Title.Value = State
+
+    getgenv()['IrisAd'] = true
+    local Notification = loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisBetterNotifications.lua"))()
+
+    Notification.Notify("Hi "..game:GetService("Players").LocalPlayer.leaderstats.FirstName.Value.." "..game:GetService("Players").LocalPlayer.leaderstats.LastName.Value.." "..game:GetService("Players").LocalPlayer.leaderstats.Title.Value, "It's nice to meet you!", "rbxassetid://4914902889" ); -- the rbx is the image id
+
+end)
 
 
 
