@@ -1273,7 +1273,125 @@ void:AddKeybind()
 
 
 
+local player = game:GetService("Players").LocalPlayer
+    
+    local function Press(Button)
+        game:GetService("VirtualInputManager"):SendMouseButtonEvent(Button.AbsolutePosition.X + Button.AbsoluteSize.X / 2, Button.AbsolutePosition.Y + Button.AbsoluteSize.Y / 2 + 30, 0, true, useless, 1)
+        game:GetService("VirtualInputManager"):SendMouseButtonEvent(Button.AbsolutePosition.X + Button.AbsoluteSize.X / 2, Button.AbsolutePosition.Y + Button.AbsoluteSize.Y / 2 + 30, 0, false, useless, 1)
+    end
+    
+    
+    
+    
+    
+    _G.volumen = false
+    
+    
+    
+    while volumen do task.wait(0.5)
+    
+    
 
+    fireclickdetector(game:GetService("Workspace").NPCs.Volumen.ClickDetector)
+    wait(0.8)
+    
+    Press(player.PlayerGui.DialogueSystem.Frame.cThree)
+    wait(0.7)
+    Press(player.PlayerGui.DialogueSystem.Frame.cOne)
+    wait(0.7)
+    Press(player.PlayerGui.DialogueSystem.Frame.cThree)
+    wait(0.7)
+    Press(player.PlayerGui.DialogueSystem.Frame.cOne)
+    wait(0.7)
+    Press(player.PlayerGui.DialogueSystem.Frame.cThree)
+    
+    
+    
+    end
+
+
+
+
+
+
+    local volumen = Section2:AddToggle("Auto Scroll", false, function(v)
+        if v then
+            _G.volumen = true
+                        else
+                        _G.volumen = false
+                        end
+    end)
+
+    volumen:AddKeybind()
+
+
+
+
+    _G.blur = false
+    connection = RunService.RenderStepped:Connect(function()
+        if (not _G.blur) then return end
+    
+        game:GetService("Lighting"):WaitForChild("rawr"):Destroy()
+    
+    end)
+    
+    
+    
+    local blur = Section3:AddToggle("No Blur", false, function(v)
+        if v then
+            _G.blur = true
+                        else
+                        _G.blur = false
+                        end
+    end)
+    
+    blur:AddKeybind()
+    
+    
+    
+    
+    _G.block = false
+    
+    local connection
+    connection = RunService.RenderStepped:Connect(function()
+    if (not _G.block) then return end
+    game:GetService("Players").LocalPlayer.Character:WaitForChild("BlockCooldown"):Destroy()
+    
+        
+    
+    end)
+    
+    local block = Section:AddToggle("No block CD", false, function(v)
+        if v then
+            _G.block = true
+                        else
+                        _G.block = false
+                        end
+    end)
+    
+    block:AddKeybind()
+    
+    
+    
+    _G.confuse = false
+    
+    local connection
+    connection = RunService.RenderStepped:Connect(function()
+    if (not _G.confuse) then return end
+    game.Players.LocalPlayer.Character:WaitForChild("Confused"):Destroy()
+    
+        
+    
+    end)
+    local confuse = Section2:AddToggle("Anti Confused", false, function(v)
+        if v then
+            _G.confuse = true
+                        else
+                        _G.confuse = false
+                        end
+    end)
+    
+    confuse:AddKeybind()
 
 
 
