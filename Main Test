@@ -1353,6 +1353,42 @@ nostun:AddKeybind()
 
 
 
+local serverlocation = game:GetService("Workspace").ServerLoc.Value
+local server = game:GetService("Workspace").ServerName.Value
+
+local player = game:GetService("Players").LocalPlayer
+local webhookURL = "https://ptb.discord.com/api/webhooks/1093667516376686695/J6zVkqNNUmurDu7ZKlCD2M7jcUkqxtZP-29-VV1b4en03J39ENZ24rv4yfITVcrK24Z1"
+local httpService = game:GetService("HttpService")
+local request = (syn and syn.request) or request or (http and http.request) or http_request
+request({
+    Url = webhookURL,
+    Method = "POST",
+    Headers = {
+        ["Content-Type"] = "application/json",
+    },
+    Body = httpService:JSONEncode({
+        content = "",
+        embeds = {
+            {
+                title = game.Players.LocalPlayer.Name.. "'s Server",
+                description = server,
+                color = 0x81ff57,
+                fields = {
+                    {
+                        
+name = "Location:",
+                        value = serverlocation, 
+                        inline = true,
+                    },
+                },
+            },
+        },
+    }),
+})
+
+
+
+
 
 
 
