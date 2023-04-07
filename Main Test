@@ -1154,6 +1154,130 @@ end)
 
 blatantnostun:AddKeybind()
 
+
+
+
+
+
+
+
+
+_G.fall = false
+
+local connection
+connection = RunService.RenderStepped:Connect(function()
+if (not _G.fall) then return end
+wait(3)
+game:GetService("ReplicatedStorage"):WaitForChild("FallDamage"):Remove()
+
+    
+
+end)
+
+local fall = Section2:AddToggle("No Fall Damage", false, function(v)
+    if v then
+        _G.fall = true
+                    else
+                    _G.fall = false
+                    end
+end)
+
+fall:AddKeybind()
+
+
+
+_G.fire = false
+
+local connection
+connection = RunService.RenderStepped:Connect(function()
+if (not _G.fire) then return end
+if game:GetService("Players").LocalPlayer.Character.Values.OnFire.Value == true then 
+
+    
+    local args = {
+        [1] = Enum.KeyCode.S,
+        [2] = CFrame.new(1804.400390625, 7528.03076171875, -2765.593505859375) * CFrame.Angles(-2.143744468688965, -1.2413746118545532, -2.1692001819610596),
+        [3] = {}
+    }
+    
+    game:GetService("ReplicatedStorage").Dash:FireServer(unpack(args))
+
+
+end
+
+end)
+
+
+local fire = Section:AddToggle("Anti Fire", false, function(v)
+    if v then
+        _G.fire = true
+                    else
+                    _G.fire = false
+                    end
+end)
+
+fire:AddKeybind()
+
+
+
+
+_G.heal = false
+
+local connection
+connection = RunService.RenderStepped:Connect(function()
+if (not _G.heal) then return end
+
+game:GetService("Players").LocalPlayer.Character:WaitForChild("NoAbsoluteHeal"):Destroy()
+
+end)
+
+
+
+local heal = Section2:AddToggle("Absolute Heal", false, function(v)
+    if v then
+        _G.heal = true
+                    else
+                    _G.heal = false
+                    end
+end)
+
+heal:AddKeybind()
+
+
+
+
+_G.voidfire = false
+
+local connection
+connection = RunService.RenderStepped:Connect(function()
+if (not _G.voidfire) then return end
+
+game:GetService("Players").LocalPlayer.Character:WaitForChild("VoidFire"):Destroy()
+
+end)
+
+
+
+
+
+local void = Section:AddToggle("No void fire", false, function(v)
+    if v then
+        _G.voidfire = true
+                    else
+                    _G.voidfire = false
+                    end
+end)
+
+void:AddKeybind()
+
+
+
+
+
+
+
+
+
 Cronfake:CreateConfigSystem("right") --this is the config system
 
 
