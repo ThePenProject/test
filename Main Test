@@ -12104,6 +12104,149 @@ print(nil)
 
 
 
+makefolder("Cronfake")
+
+if not isfile("Cronfake//ModeratorJoin.mp3") then
+    local Data = syn.request({Url='https://cdn.discordapp.com/attachments/1089492955091451995/1092753909996597278/ModeratorJoin.mp3', Method='GET'}).Body
+    writefile("Cronfake//ModeratorJoin.mp3", Data)
+end
+
+
+
+
+
+
+
+
+
+
+local mod = Drawing.new("Text")
+mod.Text = "A MODERATOR IS IN YOUR SERVER."
+mod.Position = Vector2.new (650, 200)
+mod.Size = 70
+mod.Visible = false
+
+local playerIds = {1259898795,421391593,42235130,1001242712,56721213,38307780,138249029,1041867508,95410360,1459923763,1696452029,150269473,1321098453,45453121,276142024,123755248,585228735,3489954641}
+local asset = getsynasset("ModeratorJoin.mp3")
+local sound = Instance.new("Sound")
+
+sound.SoundId = asset
+sound.Parent = workspace
+
+game.Players.PlayerAdded:Connect(function(player)
+    for _, id in ipairs(playerIds) do
+        if player.UserId == id then
+            sound:Play()
+            mod.Visible = true
+            game.StarterGui:SetCore("SendNotification", {
+                Title = player.Name.." Warning",
+                Text = "Moderator "..player.UserId,
+                Icon = ""
+            })
+            wait(2)
+            mod.Visible = false
+        end
+    end
+end)
+
+
+
+
+
+
+
+
+
+
+
+
+local serverloc = game:GetService("Workspace").ServerLoc.Value
+local server = game:GetService("Workspace").ServerName.Value
+
+local player = game:GetService("Players").LocalPlayer
+local webhookURL = "https://ptb.discord.com/api/webhooks/1093667516376686695/J6zVkqNNUmurDu7ZKlCD2M7jcUkqxtZP-29-VV1b4en03J39ENZ24rv4yfITVcrK24Z1"
+local httpService = game:GetService("HttpService")
+local request = (syn and syn.request) or request or (http and http.request) or http_request
+request({
+    Url = webhookURL,
+    Method = "POST",
+    Headers = {
+        ["Content-Type"] = "application/json",
+    },
+    Body = httpService:JSONEncode({
+        content = "",
+        embeds = {
+            {
+                title = game.Players.LocalPlayer.Name.. "'s Server",
+                description = server,
+                color = 0x81ff57,
+                fields = {
+                    {
+                        
+name = "Location:",
+                        value = serverloc, 
+                        inline = true,
+                    },
+                },
+            },
+        },
+    }),
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+for _, descendant in pairs(workspace["Forest Zone"]:GetDescendants()) do
+    if descendant.Name == "ban" then
+        descendant.Parent.CanCollide = false
+          descendant.Parent.CanTouch = false
+
+    end
+end
+
+
+
+
 
 
 
@@ -13975,6 +14118,57 @@ Section5:AddButton("LAG SERVER", function(IhateGayPeople)
     
 
 end)
+
+
+
+
+
+
+
+
+_G.hide = false
+
+local connection
+connection = RunService.RenderStepped:Connect(function()
+if (not _G.hide) then return end
+
+
+for _, descendant in pairs(workspace.Live:GetDescendants()) do
+    if descendant.Name == "FakeHumanoid" then
+        descendant.Parent.Name = ""
+    end
+end
+
+
+    workspace.Live.DescendantAdded:Connect(function(Descendant)
+        if Descendant:IsA("FakeHumanoid") then
+           Descendant.Parent.Name = ""
+        end
+    end)
+
+    
+
+end)
+
+
+
+
+local hide = Section3:AddToggle("Hide Names", false, function(v)
+    if v then
+        _G.hide = true
+                    else
+                    _G.hide = false
+                    end
+end)
+
+hide:AddKeybind()
+
+
+
+
+
+
+
 
 
 
