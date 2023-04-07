@@ -369,6 +369,30 @@ end)
 blur:AddKeybind()
 
 
+_G.lumen = false
+local connection
+connection = RunService.RenderStepped:Connect(function()
+if (not _G.lumen) then return end
+for _, descendant in pairs(workspace.Thrown:GetDescendants()) do
+    if descendant.Name == "DarkFire" then
+        descendant.Attachment:FindFirstChild("ParticleEmitter").Enabled = true
+    end
+end
+
+end)
+
+
+
+local lumen = Section3:AddToggle("Reveal Dark Flames", false, function(v)
+    if v then
+        _G.lumen = true
+                    else
+                    _G.lumen = false
+                    end
+end)
+
+lumen:AddKeybind()
+
 
 _G.Dung = false
 function roman_to_number(roman)
@@ -1312,6 +1336,40 @@ local nostun = Section2:AddToggle("No Stun", false, function(v)
 end)
 
 nostun:AddKeybind()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
