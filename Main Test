@@ -2073,27 +2073,7 @@ local player = game:GetService("Players").LocalPlayer
 
 
 
-    
-_G.tempus = true
-local RunService = game:GetService("RunService")
 
-local connection
-connection = RunService.RenderStepped:Connect(function()
-if (not _G.tempus) then return end
-
-game:GetService("Players").LocalPlayer.Character:WaitForChild("NoControl"):Destroy()
-
-end)
-    
-local tempus = Section:AddToggle("Anti Tempus Snap", false, function(v)
-    if v then
-        _G.tempus = true
-                    else
-                    _G.tempus = false
-                    end
-end)
-
-block:AddKeybind()
 
     
     _G.block = false
@@ -2140,7 +2120,27 @@ block:AddKeybind()
     confuse:AddKeybind()
 
 
-
+    
+    _G.tempus = true
+    local RunService = game:GetService("RunService")
+    
+    local connection
+    connection = RunService.RenderStepped:Connect(function()
+    if (not _G.tempus) then return end
+    
+    game:GetService("Players").LocalPlayer.Character:WaitForChild("NoControl"):Destroy()
+    
+    end)
+        
+    local tempus = Section:AddToggle("Anti Tempus Snap", false, function(v)
+        if v then
+            _G.tempus = true
+                        else
+                        _G.tempus = false
+                        end
+    end)
+    
+    tempus:AddKeybind()
 
 Cronfake:CreateConfigSystem("right") --this is the config system
 
