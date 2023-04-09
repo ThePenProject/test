@@ -657,7 +657,7 @@ end)
 lumen:AddKeybind()
 
 
-_G.Dung = true
+_G.Dung = false
 function roman_to_number(roman)
     local numeral_values = {
     ["I"] = 1,
@@ -785,8 +785,10 @@ end)
 local dungesp = Section4:AddToggle("Dungeon Floor ESP", false, function(v)
     if v then
         _G.Dung = true
+        ['Visible'] = true ;
                     else
                     _G.Dung = false
+                    ['Visible'] = false ;
                     end
 end)
 
