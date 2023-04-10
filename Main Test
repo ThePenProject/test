@@ -695,6 +695,8 @@ end)
 lumen:AddKeybind()
 
 
+
+
 _G.Dung = false
 function roman_to_number(roman)
     local numeral_values = {
@@ -753,9 +755,6 @@ task.spawn(function() while task.wait(0.1) do
         task.wait(0.1)
     end end)
 end end)
-
-
-
 
 
 
@@ -821,13 +820,14 @@ end)
 
 
 local dungesp = Section4:AddToggle("Dungeon Floor ESP", false, function(v)
+    
     if v then
         _G.Dung = true
-        getgenv().TextProperies['Visible'] = true
-                    else
-                    _G.Dung = false
-                    getgenv().TextProperies['Visible'] = false
-                    end
+        getgenv().TextDung['Visible'] = true
+        else
+        _G.Dung = false
+        getgenv().TextDung['Visible'] = false
+        end
 end)
 
 dungesp:AddKeybind()
