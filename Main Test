@@ -648,7 +648,7 @@ fullbright:AddKeybind()
 _G.blur = true
 connection = RunService.RenderStepped:Connect(function()
     if (not _G.blur) then return end
-
+    task.wait(0.5)
     game:GetService("Lighting"):WaitForChild("rawr"):Destroy()
 
 end)
@@ -2138,7 +2138,7 @@ local player = game:GetService("Players").LocalPlayer
     local connection
     connection = RunService.RenderStepped:Connect(function()
     if (not _G.confuse) then return end
-    task.wait()
+    task.wait(0.5)
     game.Players.LocalPlayer.Character:WaitForChild("Confused"):Destroy()
     
     
@@ -2161,7 +2161,7 @@ local player = game:GetService("Players").LocalPlayer
     local connection
     connection = RunService.RenderStepped:Connect(function()
     if (not _G.tempus) then return end
-    task.wait()
+    task.wait(0.5)
     game:GetService("Players").LocalPlayer.Character:WaitForChild("NoControl"):Destroy()
     
     end)
