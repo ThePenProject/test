@@ -783,8 +783,6 @@ end end)
 
 
 
-
-
 local Camera = game:GetService("Workspace").CurrentCamera
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
@@ -800,9 +798,16 @@ function humanoid_esp(Character, _Parent)
     Text.Font = 3
     Text.Color = Color3.fromRGB(255, 255, 255)
     Text.Size = 16
+    local Text2 = Drawing.new("Text")
+    Text2.Visible = false
+    Text2.Center = true
+    Text2.Outline = true
+    Text2.Font = 3
+    Text2.Color = Color3.fromRGB(255, 255, 255)
+    Text2.Size = 16
     
     local RenderStepped
-    RenderStepped = RunService.RenderStepped:Connect(function()
+    RenderStepped = RunService.Stepped:Connect(function()
         if on then
         if Character and Character.Parent ~= nil then
             local Pos, onScreen = Camera:WorldToViewportPoint(Character:FindFirstChildOfClass("Part").Position)
@@ -810,18 +815,25 @@ function humanoid_esp(Character, _Parent)
             if onScreen and Character:FindFirstChild("Humanoid") then
                 local Humanoid = Character:FindFirstChild("Humanoid")
                 Text.Position = Vector2.new(Pos.X, Pos.Y)
+                Text2.Position = Vector2.new(Pos.X, Pos.Y + 2)
+                Text2.Text = "[Name: "..Character.Name.."]"
                 Text.Text = "[" .. math.floor(Humanoid.Health) .. "/" .. math.floor(Humanoid.MaxHealth) .. "]" .. "[" .. math.floor((Humanoid.Health / Humanoid.MaxHealth)*100) .. "%]"
                 Text.Visible = true
+                Text2.Visible = true
             else
                 Text.Visible = false
+                Text2.Visible = false
             end
         else
             Text.Visible = false
+            Text2.Visible = false
             Text:Remove()
+            Text2:Remove()
             RenderStepped:Disconnect()
         end
         else
             Text.Visible = false
+            Text2.Visible = false
         end
     end)
 end
