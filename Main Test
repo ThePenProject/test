@@ -2179,10 +2179,9 @@ local player = game:GetService("Players").LocalPlayer
 
 
 
-
     local awardespbool = false
 
-    local AwardESP = Section4:AddToggle("Reward ESP",false,function(v)
+    local AwardESP = Section:AddToggle("Reward ESP",false,function(v)
         if v then
             awardespbool = true
         else
@@ -2232,7 +2231,7 @@ local player = game:GetService("Players").LocalPlayer
     
                     if v.BrickColor == BrickColor.new("Salmon") then
                         TextLabel.TextColor3 = Color3.new(0.545098, 0.356863, 0.356863)
-                        TextLabel.Text = "Skip"
+                        TextLabel.Text = "Skip 10"
                     elseif v.BrickColor == BrickColor.new("Olivine") then
                         TextLabel.TextColor3 = Color3.new(0.298039, 0.654902, 0.027451)
                         TextLabel.Text = "Heal"
@@ -2248,16 +2247,14 @@ local player = game:GetService("Players").LocalPlayer
                     elseif v.BrickColor == BrickColor.new("Medium orange") then
                         TextLabel.TextColor3 = Color3.new(0.615686, 0.384314, 0.0117647)
                         TextLabel.Text = "Race Reroll"
+                    elseif v.BrickColor == BrickColor.new("Alder") then
+                        TextLabel.TextColor3 = Color3.new(0.5,0,0.5)
+                        TextLabel.Text = "Reroll Rewards"
                     end
                 end
             end
         end
     end)
-
-
-
-
-
 
 
 
