@@ -1655,7 +1655,6 @@ local RunService = game:GetService("RunService")
 local connection
 connection = RunService.RenderStepped:Connect(function()
 if (not _G.nostun) then return end
-task.wait()
             if       LP.Character.Values.Running.Value == true   then 
             LP.Character.Humanoid.WalkSpeed = 26
             LP.Character.Humanoid.JumpPower = 50
@@ -1917,7 +1916,6 @@ _G.BlatantNostun = false
 local connection
 connection = RunService.RenderStepped:Connect(function()
 if (not _G.BlatantNostun) then return end
-task.wait()
             LP.Character.Humanoid.WalkSpeed = 26
 
 end)
