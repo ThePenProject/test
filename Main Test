@@ -674,6 +674,7 @@ _G.lumen = false
 local connection
 connection = RunService.RenderStepped:Connect(function()
 if (not _G.lumen) then return end
+task.wait()
 for _, descendant in pairs(workspace.Thrown:GetDescendants()) do
     if descendant.Name == "DarkFire" then
         descendant.Attachment:FindFirstChild("ParticleEmitter").Enabled = true
@@ -1658,6 +1659,7 @@ local RunService = game:GetService("RunService")
 local connection
 connection = RunService.RenderStepped:Connect(function()
 if (not _G.nostun) then return end
+task.wait()
             if       LP.Character.Values.Running.Value == true   then 
             LP.Character.Humanoid.WalkSpeed = 26
             LP.Character.Humanoid.JumpPower = 50
@@ -1926,6 +1928,7 @@ _G.BlatantNostun = false
 local connection
 connection = RunService.RenderStepped:Connect(function()
 if (not _G.BlatantNostun) then return end
+task.wait()
             LP.Character.Humanoid.WalkSpeed = 26
 
 end)
@@ -1955,7 +1958,7 @@ _G.fall = false
 local connection
 connection = RunService.RenderStepped:Connect(function()
 if (not _G.fall) then return end
-wait(3)
+task.wait(3)
 game:GetService("ReplicatedStorage"):WaitForChild("FallDamage"):Remove()
 
     
@@ -1979,6 +1982,7 @@ _G.fire = false
 local connection
 connection = RunService.RenderStepped:Connect(function()
 if (not _G.fire) then return end
+task.wait()
 if game:GetService("Players").LocalPlayer.Character.Values.OnFire.Value == true then 
 
     
@@ -2014,6 +2018,7 @@ _G.heal = false
 local connection
 connection = RunService.RenderStepped:Connect(function()
 if (not _G.heal) then return end
+task.wait()
 
 game:GetService("Players").LocalPlayer.Character:WaitForChild("NoAbsoluteHeal"):Destroy()
 
@@ -2039,6 +2044,7 @@ _G.voidfire = false
 local connection
 connection = RunService.RenderStepped:Connect(function()
 if (not _G.voidfire) then return end
+task.wait()
 
 game:GetService("Players").LocalPlayer.Character:WaitForChild("VoidFire"):Destroy()
 
@@ -2121,6 +2127,7 @@ local player = game:GetService("Players").LocalPlayer
     local connection
     connection = RunService.RenderStepped:Connect(function()
     if (not _G.block) then return end
+    task.wait()
     game:GetService("Players").LocalPlayer.Character:WaitForChild("BlockCooldown"):Destroy()
     
         
@@ -2144,6 +2151,7 @@ local player = game:GetService("Players").LocalPlayer
     local connection
     connection = RunService.RenderStepped:Connect(function()
     if (not _G.confuse) then return end
+    task.wait()
     game.Players.LocalPlayer.Character:WaitForChild("Confused"):Destroy()
     
         
@@ -2166,6 +2174,7 @@ local player = game:GetService("Players").LocalPlayer
     
     local connection
     connection = RunService.RenderStepped:Connect(function()
+        task.wait()
     if (not _G.tempus) then return end
     
     game:GetService("Players").LocalPlayer.Character:WaitForChild("NoControl"):Destroy()
