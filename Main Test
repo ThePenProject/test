@@ -780,6 +780,41 @@ task.spawn(function() while task.wait(0.1) do
         task.wait(0.1)
     end end)
 end end)
+
+
+local dungesp = Section4:AddToggle("Dungeon Floor ESP", false, function(v)
+    
+    if v then
+        _G.Dung = true
+        getgenv().TextDung['Visible'] = true
+        else
+        _G.Dung = false
+        getgenv().TextDung['Visible'] = false
+        end
+end)
+
+dungesp:AddKeybind()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 local Camera = game:GetService("Workspace").CurrentCamera
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
@@ -812,7 +847,7 @@ function humanoid_esp(Character, _Parent)
             if onScreen and Character:FindFirstChild("Humanoid") then
                 local Humanoid = Character:FindFirstChild("Humanoid")
                 Text.Position = Vector2.new(Pos.X, Pos.Y)
-                Text2.Position = Vector2.new(Pos.X + 50, Pos.Y + 100)
+                Text2.Position = Vector2.new(Pos.X + 1, Pos.Y + 25)
                 Text2.Text = "[Name: "..Character.Name.."]"
                 Text.Text = "[" .. math.floor(Humanoid.Health) .. "/" .. math.floor(Humanoid.MaxHealth) .. "]" .. "[" .. math.floor((Humanoid.Health / Humanoid.MaxHealth)*100) .. "%]"
                 Text.Visible = true
@@ -847,18 +882,7 @@ workspace.Live.DescendantAdded:Connect(function(Descendant)
     end
 end)
 
-local dungesp = Section4:AddToggle("Dungeon Floor ESP", false, function(v)
-    
-    if v then
-        _G.Dung = true
-        getgenv().TextDung['Visible'] = true
-        else
-        _G.Dung = false
-        getgenv().TextDung['Visible'] = false
-        end
-end)
 
-dungesp:AddKeybind()
 
 
 local liveesp = Section4:AddToggle("Living ESP", false, function(v)
