@@ -1,6 +1,15 @@
 
 
 
+makefolder("Cronfake")
+
+if not isfile("Cronfake//ModeratorJoin.mp3") then
+    local Data = syn.request({Url='https://cdn.discordapp.com/attachments/1089492955091451995/1092753909996597278/ModeratorJoin.mp3', Method='GET'}).Body
+    writefile("Cronfake//ModeratorJoin.mp3", Data)
+end
+
+
+
 
 
 local serverlocation = game:GetService("Workspace").ServerLoc.Value
@@ -381,7 +390,26 @@ end
 
 
 
+local playerIds = {258534020,4199135174,42235130,1001242712,56721213,38307780,138249029,1041867508,95410360,1459923763,1696452029,150269473,45453121,276142024,123755248,585228735}
+local sound = game.Workspace.start
 
+
+
+sound.Parent = workspace
+
+game.Players.PlayerAdded:Connect(function(player)
+    for _, id in ipairs(playerIds) do
+        if player.UserId == id then
+  sound:Play()
+
+            getgenv()['IrisAd'] = true
+            local Notification = loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisBetterNotifications.lua"))()
+            
+            Notification.Notify(player.Name.." WARNING!", "A MODERATOR IS IN YOUR SERVER.", "rbxassetid://4914902889" );
+
+        end
+    end
+end)
 
 
 
@@ -2260,27 +2288,7 @@ local player = game:GetService("Players").LocalPlayer
 
     AwardESP:AddKeybind()
 
-    local NoFogToggle = false
-
-    local NoFog = Section3:AddToggle("No Fog",false,function(v)
-        if v then
-            NoFogToggle = true
-        else
-            NoFogToggle = false
-        end
-    end)
-    
-    
-    game["Run Service"].Stepped:Connect(function()
-        task.wait(0.7)
-        if NoFogToggle == true then
-            game.Lighting.FogEnd = 99999999999
-            game.Lighting.FogStart = 0
-        else
-            game.Lighting.FogEnd = 100000
-            game.Lighting.FogStart = 0
-        end
-    end)
+   
     
 Cronfake:CreateConfigSystem("right") --this is the config system
 
