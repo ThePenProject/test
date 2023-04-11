@@ -2182,8 +2182,6 @@ local player = game:GetService("Players").LocalPlayer
 
 
 
-
-
     local awardespbool = false
 
     local AwardESP = Section4:AddToggle("Reward ESP",false,function(v)
@@ -2191,6 +2189,11 @@ local player = game:GetService("Players").LocalPlayer
             awardespbool = true
         else
             awardespbool = false
+            for i, v in pairs(game.Workspace:GetChildren()) do
+                if v:IsA("Part") and v.Name == "Award" and v:FindFirstChild("BillboardGui") then
+                    v.BillboardGui:Destroy()
+                end
+            end
         end
     end)
     
@@ -2225,7 +2228,7 @@ local player = game:GetService("Players").LocalPlayer
                     TextLabel.Size = UDim2.new(0, 200, 0, 50)
                     TextLabel.Font = Enum.Font.Fantasy
                     TextLabel.TextScaled = false
-                    TextLabel.TextSize = 25.000
+                    TextLabel.TextSize = 14.000
                     TextLabel.TextWrapped = true
                     ---AT THIS POINT DO NOT EDIT ANYTHING
     
@@ -2251,8 +2254,9 @@ local player = game:GetService("Players").LocalPlayer
                 end
             end
         end
-    end) 
-    
+    end)
+
+
 
 
 
