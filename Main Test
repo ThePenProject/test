@@ -1772,10 +1772,7 @@ Section3:AddTextbox("Last Name:",  game:GetService("Players").LocalPlayer.leader
    
     game:GetService("Players").LocalPlayer.leaderstats.LastName.Value = State
 
-    getgenv()['IrisAd'] = true
-    local Notification = loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisBetterNotifications.lua"))()
-
-    Notification.Notify("Hi,Mr. "..State..".", "It's nice to meet you!", "rbxassetid://4914902889" ); -- the rbx is the image id
+  
 
 end)
 
@@ -1784,11 +1781,7 @@ Section3:AddTextbox("Title:", game:GetService("Players").LocalPlayer.leaderstats
      
     game:GetService("Players").LocalPlayer.leaderstats.Title.Value = State
 
-    getgenv()['IrisAd'] = true
-    local Notification = loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisBetterNotifications.lua"))()
-
-    Notification.Notify("Hi "..game:GetService("Players").LocalPlayer.leaderstats.FirstName.Value.." "..game:GetService("Players").LocalPlayer.leaderstats.LastName.Value.." "..game:GetService("Players").LocalPlayer.leaderstats.Title.Value, "It's nice to meet you!", "rbxassetid://4914902889" ); -- the rbx is the image id
-
+   
 end)
 
 
@@ -2150,7 +2143,6 @@ local player = game:GetService("Players").LocalPlayer
     task.wait()
     game.Players.LocalPlayer.Character:WaitForChild("Confused"):Destroy()
     
-        
     
     end)
     local confuse = Section2:AddToggle("Anti Confused", false, function(v)
@@ -2170,9 +2162,8 @@ local player = game:GetService("Players").LocalPlayer
     
     local connection
     connection = RunService.RenderStepped:Connect(function()
-        task.wait()
     if (not _G.tempus) then return end
-    
+    task.wait()
     game:GetService("Players").LocalPlayer.Character:WaitForChild("NoControl"):Destroy()
     
     end)
@@ -2187,12 +2178,6 @@ local player = game:GetService("Players").LocalPlayer
     
     tempus:AddKeybind()
    
-
-
-
-
-
-
 
 
 
@@ -2240,13 +2225,13 @@ local player = game:GetService("Players").LocalPlayer
                     TextLabel.Size = UDim2.new(0, 200, 0, 50)
                     TextLabel.Font = Enum.Font.Fantasy
                     TextLabel.TextScaled = false
-                    TextLabel.TextSize = 14.000
+                    TextLabel.TextSize = 25.000
                     TextLabel.TextWrapped = true
                     ---AT THIS POINT DO NOT EDIT ANYTHING
     
                     if v.BrickColor == BrickColor.new("Salmon") then
                         TextLabel.TextColor3 = Color3.new(0.545098, 0.356863, 0.356863)
-                        TextLabel.Text = "Skip 10"
+                        TextLabel.Text = "Skip"
                     elseif v.BrickColor == BrickColor.new("Olivine") then
                         TextLabel.TextColor3 = Color3.new(0.298039, 0.654902, 0.027451)
                         TextLabel.Text = "Heal"
@@ -2259,11 +2244,17 @@ local player = game:GetService("Players").LocalPlayer
                     elseif v.BrickColor == BrickColor.new("Institutional white") then
                         TextLabel.TextColor3 = Color3.new(0.631373, 0.631373, 0.631373)
                         TextLabel.Text = "Silver"
+                    elseif v.BrickColor == BrickColor.new("Medium orange") then
+                        TextLabel.TextColor3 = Color3.new(0.615686, 0.384314, 0.0117647)
+                        TextLabel.Text = "Race Reroll"
                     end
                 end
             end
         end
-    end)
+    end) 
+    
+
+
 
 
 
