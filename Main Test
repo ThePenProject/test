@@ -2199,9 +2199,6 @@ local player = game:GetService("Players").LocalPlayer
 
 
 
-
-
-
     local awardespbool = false
 
     local AwardESP = Section:AddToggle("Reward ESP",false,function(v)
@@ -2271,6 +2268,9 @@ local player = game:GetService("Players").LocalPlayer
 
 
 
+
+
+    
 Cronfake:CreateConfigSystem("right") --this is the config system
 
 
