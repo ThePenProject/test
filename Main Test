@@ -808,10 +808,6 @@ dungesp:AddKeybind()
 
 
 
-
-
-
-
 local Camera = game:GetService("Workspace").CurrentCamera
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
@@ -841,13 +837,13 @@ function humanoid_esp(Character, _Parent)
     Text3.Font = 3
     Text3.Color = Color3.fromRGB(255, 255, 255)
     Text3.Size = 16
-
+    
     local RenderStepped
     RenderStepped = RunService.Stepped:Connect(function()
         if on then
         if Character and Character.Parent ~= nil then
             local Pos, onScreen = Camera:WorldToViewportPoint(Character:FindFirstChildOfClass("Part").Position)
-
+            
             if onScreen and Character:FindFirstChild("Humanoid") then
                 local Humanoid = Character:FindFirstChild("Humanoid")
                 Text.Position = Vector2.new(Pos.X, Pos.Y)
@@ -862,6 +858,7 @@ function humanoid_esp(Character, _Parent)
                 Text.Text = "[" .. math.floor(Humanoid.Health) .. "/" .. math.floor(Humanoid.MaxHealth) .. "]" .. "[" .. math.floor((Humanoid.Health / Humanoid.MaxHealth)*100) .. "%]"
                 Text.Visible = true
                 Text2.Visible = true
+                Text3.Visible = true
             else
                 Text.Visible = false
                 Text2.Visible = false
@@ -895,6 +892,31 @@ workspace.Live.DescendantAdded:Connect(function(Descendant)
         humanoid_esp(Descendant.Parent, Descendant.Parent.Parent)
     end
 end)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 local liveesp = Section4:AddToggle("Living ESP", false, function(v)
