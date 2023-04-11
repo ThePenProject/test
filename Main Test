@@ -2181,7 +2181,7 @@ local player = game:GetService("Players").LocalPlayer
 
     local awardespbool = false
 
-    local AwardESP = Section:AddToggle("Reward ESP",false,function(v)
+    local AwardESP = Section4:AddToggle("Reward ESP",false,function(v)
         if v then
             awardespbool = true
         else
@@ -2258,6 +2258,7 @@ local player = game:GetService("Players").LocalPlayer
 
 
 
+    AwardESP:AddKeybind()
 
 
     
