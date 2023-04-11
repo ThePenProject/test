@@ -780,8 +780,6 @@ task.spawn(function() while task.wait(0.1) do
         task.wait(0.1)
     end end)
 end end)
-
-
 local Camera = game:GetService("Workspace").CurrentCamera
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
@@ -814,7 +812,7 @@ function humanoid_esp(Character, _Parent)
             if onScreen and Character:FindFirstChild("Humanoid") then
                 local Humanoid = Character:FindFirstChild("Humanoid")
                 Text.Position = Vector2.new(Pos.X, Pos.Y)
-                Text2.Position = Vector2.new(Pos.X, Pos.Y + 25)
+                Text2.Position = Vector2.new(Pos.X + 50, Pos.Y + 100)
                 Text2.Text = "[Name: "..Character.Name.."]"
                 Text.Text = "[" .. math.floor(Humanoid.Health) .. "/" .. math.floor(Humanoid.MaxHealth) .. "]" .. "[" .. math.floor((Humanoid.Health / Humanoid.MaxHealth)*100) .. "%]"
                 Text.Visible = true
@@ -848,7 +846,6 @@ workspace.Live.DescendantAdded:Connect(function(Descendant)
         humanoid_esp(Descendant.Parent, Descendant.Parent.Parent)
     end
 end)
-
 
 local dungesp = Section4:AddToggle("Dungeon Floor ESP", false, function(v)
     
