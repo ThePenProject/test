@@ -2260,7 +2260,27 @@ local player = game:GetService("Players").LocalPlayer
 
     AwardESP:AddKeybind()
 
+    local NoFogToggle = false
 
+    local NoFog = Section3:AddToggle("No Fog",false,function(v)
+        if v then
+            NoFogToggle = true
+        else
+            NoFogToggle = false
+        end
+    end)
+    
+    
+    game["Run Service"].Stepped:Connect(function()
+        task.wait(0.7)
+        if NoFogToggle == true then
+            game.Lighting.FogEnd = 99999999999
+            game.Lighting.FogStart = 0
+        else
+            game.Lighting.FogEnd = 100000
+            game.Lighting.FogStart = 0
+        end
+    end)
     
 Cronfake:CreateConfigSystem("right") --this is the config system
 
