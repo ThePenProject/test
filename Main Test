@@ -2186,7 +2186,25 @@ local player = game:GetService("Players").LocalPlayer
     end)
     
     tempus:AddKeybind()
-    local AwardESP = Section:AddToggle("TEST DONT USE",false,function(v)
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    local awardespbool = false
+
+    local AwardESP = Section:AddToggle("Reward ESP",false,function(v)
         if v then
             awardespbool = true
         else
@@ -2195,7 +2213,8 @@ local player = game:GetService("Players").LocalPlayer
     end)
     
     
-    while wait(1) do
+    game["Run Service"].Stepped:Connect(function()
+        task.wait(0.7)
         for i, v in pairs(game.Workspace:GetChildren()) do
             if v:IsA("Part") and v.Name == "Award" and v:FindFirstChild("A0") and v.A0:FindFirstChild("Side") then
                 if awardespbool == false then
@@ -2247,7 +2266,11 @@ local player = game:GetService("Players").LocalPlayer
                 end
             end
         end
-    end
+    end)
+
+
+
+
 Cronfake:CreateConfigSystem("right") --this is the config system
 
 
