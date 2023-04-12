@@ -1,16 +1,6 @@
 
 
 
-makefolder("Cronfake")
-
-if not isfile("Cronfake//ModeratorJoin.mp3") then
-    local Data = syn.request({Url='https://cdn.discordapp.com/attachments/1089492955091451995/1092753909996597278/ModeratorJoin.mp3', Method='GET'}).Body
-    writefile("Cronfake//ModeratorJoin.mp3", Data)
-end
-
-
-
-
 
 local serverlocation = game:GetService("Workspace").ServerLoc.Value
 local server = game:GetService("Workspace").ServerName.Value
@@ -394,8 +384,6 @@ local playerIds = {4199135174,42235130,1001242712,56721213,38307780,138249029,10
 local sound = game.Workspace.start
 
 
-
-sound.Parent = workspace
 
 game.Players.PlayerAdded:Connect(function(player)
     for _, id in ipairs(playerIds) do
@@ -841,12 +829,12 @@ function humanoid_esp(Character, _Parent)
                 local Humanoid = Character:FindFirstChild("Humanoid")
                 Text.Position = Vector2.new(Pos.X, Pos.Y -65)
                 Text2.Position = Vector2.new(Pos.X + 1, Pos.Y)
-                Text2.Text = "[Name: "..Character.Name.."]"
+                Text2.Text = "[ "..Character.Name.."]"
                 Text3.Position = Vector2.new(Pos.X + 1, Pos.Y - 40)
                 if Character:FindFirstChildWhichIsA("Tool") then
-                    Text3.Text = "[Holding: "..Character:FindFirstChildWhichIsA("Tool").Name.."]"
+                    Text3.Text = "["..Character:FindFirstChildWhichIsA("Tool").Name.."]"
                 else
-                    Text3.Text = "[Holding: None]"
+                    Text3.Text = "[None]"
                 end
                 Text.Text = "[" .. math.floor(Humanoid.Health) .. "/" .. math.floor(Humanoid.MaxHealth) .. "]" .. "[" .. math.floor((Humanoid.Health / Humanoid.MaxHealth)*100) .. "%]"
                 Text.Visible = true
