@@ -796,8 +796,6 @@ end)
 dungesp:AddKeybind()
 
 
-
-
 local Camera = game:GetService("Workspace").CurrentCamera
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
@@ -812,7 +810,7 @@ function humanoid_esp(Character, _Parent)
     Text.Outline = true
     Text.Font = 3
     Text.Color = Color3.fromRGB(255, 255, 255)
-    Text.Size = 36
+    Text.Size = 30
     local Text2 = Drawing.new("Text")
     Text2.Visible = false
     Text2.Center = true
@@ -826,7 +824,7 @@ function humanoid_esp(Character, _Parent)
     Text3.Outline = true
     Text3.Font = 3
     Text3.Color = Color3.fromRGB(255, 255, 255)
-    Text3.Size = 36
+    Text3.Size = 26
     
     local RenderStepped
     RenderStepped = RunService.Stepped:Connect(function()
@@ -836,10 +834,10 @@ function humanoid_esp(Character, _Parent)
             
             if onScreen and Character:FindFirstChild("Humanoid") then
                 local Humanoid = Character:FindFirstChild("Humanoid")
-                Text.Position = Vector2.new(Pos.X, Pos.Y + 35)
-                Text2.Position = Vector2.new(Pos.X + 1, Pos.Y - 20)
+                Text.Position = Vector2.new(Pos.X, Pos.Y -65)
+                Text2.Position = Vector2.new(Pos.X + 1, Pos.Y)
                 Text2.Text = "[Name: "..Character.Name.."]"
-                Text3.Position = Vector2.new(Pos.X + 1, Pos.Y - 70)
+                Text3.Position = Vector2.new(Pos.X + 1, Pos.Y - 40)
                 if Character:FindFirstChildWhichIsA("Tool") then
                     Text3.Text = "[Holding: "..Character:FindFirstChildWhichIsA("Tool").Name.."]"
                 else
@@ -882,9 +880,6 @@ workspace.Live.DescendantAdded:Connect(function(Descendant)
         humanoid_esp(Descendant.Parent, Descendant.Parent.Parent)
     end
 end)
-
-
-
 
 
 
