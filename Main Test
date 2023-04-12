@@ -403,141 +403,51 @@ end)
 
 
 
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/cat"))() --you can go into the github link and copy all of it and modify it for yourself.
-local Window = Library:CreateWindow("CornFlakes", Vector2.new(492, 598), Enum.KeyCode.RightControl) 
-local Cronfake = Window:CreateTab("General") 
-
-
-local Section = Cronfake:CreateSector("Blatant", "left")  --you can  change the section code, for example "testsection" can be changed to "FunnyCoolSection" etc.
-
-
-
-
-local Section2 = Cronfake:CreateSector("Misc", "right")  --you can  change the section code, for example "testsection" can be changed to "FunnyCoolSection" etc.
-
-
-
-local Section3 = Cronfake:CreateSector("Visual", "left")  --you can  change the section code, for example "testsection" can be changed to "FunnyCoolSection" etc.
-
-
-
-local Section4 = Cronfake:CreateSector("Esp", "right")  --you can  change the section code, for example "testsection" can be changed to "FunnyCoolSection" etc.
 
 
 
 
 
-local Section5 = Cronfake:CreateSector("Fun stuff", "left")  --you can  change the section code, for example "testsection" can be changed to "FunnyCoolSection" etc.
 
 
 
-Section5:AddButton("Trinket Aura", function(IhateGayPeople)
-
-    
-    local stackfuncs = {}
-    local Mouse = game.Players.LocalPlayer:GetMouse()
-    for i,v in pairs(getconnections(Mouse.Button1Down)) do
-    if tostring(rawget(getfenv(v.Function), "script")) == "mainclient "  then -- funny cheser
-    for i2,v2 in pairs(debug.getupvalues(v.Function)) do
-        if type(v2) == "function" and islclosure(v2) then
-        elseif type(v2) == "table" and getrawmetatable(v2) and getrawmetatable(v2).__index then
-            local mt = getrawmetatable(v2)
-            for i,v in pairs(mt) do
-                if type(v) == "function" then
-                for i2,v2 in pairs(getupvalues(v)) do
-                    if type(v2) == "table" then
-                        if v2[1][1][0] == game.Players.LocalPlayer then
-                                stackfuncs = v2[1][1]
-                            break
-                            end
-                        
-                        end
-                    end
-                end
-                end
-            end
-        end
-        end
-    end
-    local TrinketRemote
-    
-    if stackfuncs[13]["ClickTrinket"] then
-        TrinketRemote = stackfuncs[13]["ClickTrinket"]
-    else
-        TrinketRemote = game:GetService("ReplicatedStorage"):FindFirstChild("ClickTrinket")
-    end
-    
-    local RemoteArgs = stackfuncs[26]
-    
-    
-    local function shuffle(tabl)
-    local tbl = {table.unpack(tabl)}
-    local args = {}
-    repeat -- shuffle the arguments everytime remote is fired because thats exactly what the main scirpt does presumably?
-    if #tbl ~= 0 then
-        local completed = false
-        local index = math.random(1, #tbl)
-        local val = tbl[index]
-        table.remove(tbl, index)
-        table.insert(args, val)
-        
-        end
-    until #tbl == 0
-    return args
-    end
-    
-    local lasttbl
-    
-    local function FireRemote(trinket)
-    
-    local tbl = {table.unpack(RemoteArgs)}
-    local args = {}
-    
-    args = shuffle(tbl)
-    
-    if lasttbl and lasttbl[1] == args[1] and lasttbl[#lasttbl] == args[#args] then
-        repeat
-            task.wait(0.1)
-            args = shuffle(tbl)
-            until not lasttbl[1] == args[1] and not lasttbl[#lasttbl] == args[#args]
-        end
-    lasttbl = args
-    
-    
-    if args then
-    TrinketRemote:FireServer(trinket, table.unpack(args))
-    end
-    end
-    
-    local player = game:GetService("Players").LocalPlayer
-    local name = player.Name
-    
-    local function PickUpTrinket(ClickDetector, RealPart)
-        local part = RealPart
-        task.spawn(function()
-            repeat
-                task.wait(0.1)
-                local Character = player.Character
-                if Character and Character:FindFirstChild("HumanoidRootPart") and (Character:FindFirstChild("HumanoidRootPart").Position - part.Position).Magnitude < 9 then
-                FireRemote(ClickDetector)
-                end
-            until not part
-        end)
-    end
-    
-    for i, v in pairs(game.Workspace.Folder:GetChildren()) do
-        for i2,v2 in pairs(game.Workspace.Thrown:GetChildren()) do
-            if not v.Blacklist:FindFirstChild(name, true) and v2.Name == "Part" and v2:FindFirstChild("Mesh") and (v2.Position-v.Position).Magnitude < 3 then
-                PickUpTrinket(v,v2)
-            end
-        end
-    end
 
 
 
-end)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- full bright
 
 
     
@@ -650,18 +560,14 @@ _G.FullBrightExecuted = true
 
 
 
-local fullbright = Section3:AddToggle("Full Bright", false, function(v)
-    if v then
-        _G.FullBrightEnabled = true
-    else
-        _G.FullBrightEnabled = false
-    end
-end)
-
-fullbright:AddKeybind()
 
 
-_G.blur = true
+
+
+
+-- blur
+
+_G.blur = false
 connection = RunService.RenderStepped:Connect(function()
     if (not _G.blur) then return end
     task.wait(0.5)
@@ -671,22 +577,19 @@ end)
 
 
 
-local blur = Section3:AddToggle("No Blur", true, function(v)
-    if v then
-        _G.blur = true
-                    else
-                    _G.blur = false
-                    end
-end)
-
-blur:AddKeybind()
 
 
+
+
+
+
+
+-- lumen
 _G.lumen = false
 local connection
 connection = RunService.RenderStepped:Connect(function()
 if (not _G.lumen) then return end
-task.wait()
+task.wait(0.5)
 for _, descendant in pairs(workspace.Thrown:GetDescendants()) do
     if descendant.Name == "DarkFire" then
         descendant.Attachment:FindFirstChild("ParticleEmitter").Enabled = true
@@ -697,15 +600,8 @@ end)
 
 
 
-local lumen = Section3:AddToggle("Reveal Dark Flames", false, function(v)
-    if v then
-        _G.lumen = true
-                    else
-                    _G.lumen = false
-                    end
-end)
 
-lumen:AddKeybind()
+
 
 
 
@@ -770,18 +666,9 @@ task.spawn(function() while task.wait(0.1) do
 end end)
 
 
-local dungesp = Section4:AddToggle("Dungeon Floor ESP", false, function(v)
-    
-    if v then
-        _G.Dung = true
-        getgenv().TextDung['Visible'] = true
-        else
-        _G.Dung = false
-        getgenv().TextDung['Visible'] = false
-        end
-end)
 
-dungesp:AddKeybind()
+
+
 
 
 
@@ -881,6 +768,400 @@ workspace.Live.DescendantAdded:Connect(function(Descendant)
         end
     end
 end)
+
+
+
+
+
+
+
+
+
+
+
+_G.nostun = false
+local LP = game:GetService("Players").LocalPlayer
+
+
+local RunService = game:GetService("RunService")    
+local connection
+connection = RunService.RenderStepped:Connect(function()
+if (not _G.nostun) then return end
+            if       LP.Character.Values.Running.Value == true   then 
+            LP.Character.Humanoid.WalkSpeed = 26
+            LP.Character.Humanoid.JumpPower = 50
+        else
+            LP.Character.Humanoid.WalkSpeed = 17
+                    LP.Character.Humanoid.JumpPower = 50
+        end
+end)
+
+
+
+
+
+
+local LP = game:GetService("Players").LocalPlayer
+
+
+local RunService = game:GetService("RunService")
+
+_G.BlatantNostun = false
+
+local connection
+connection = RunService.RenderStepped:Connect(function()
+if (not _G.BlatantNostun) then return end
+            LP.Character.Humanoid.WalkSpeed = 26
+
+end)
+
+
+
+
+
+
+
+
+
+
+_G.fall = false
+
+local connection
+connection = RunService.RenderStepped:Connect(function()
+if (not _G.fall) then return end
+task.wait(3)
+game:GetService("ReplicatedStorage"):WaitForChild("FallDamage"):Remove()
+
+    
+
+end)
+
+
+
+
+
+
+
+
+_G.fire = false
+
+local connection
+connection = RunService.RenderStepped:Connect(function()
+if (not _G.fire) then return end
+task.wait()
+if game:GetService("Players").LocalPlayer.Character.Values.OnFire.Value == true then 
+
+    
+    local args = {
+        [1] = Enum.KeyCode.S,
+        [2] = CFrame.new(1804.400390625, 7528.03076171875, -2765.593505859375) * CFrame.Angles(-2.143744468688965, -1.2413746118545532, -2.1692001819610596),
+        [3] = {}
+    }
+    
+    game:GetService("ReplicatedStorage").Dash:FireServer(unpack(args))
+
+
+end
+
+end)
+
+
+
+
+
+
+_G.heal = false
+
+local connection
+connection = RunService.RenderStepped:Connect(function()
+if (not _G.heal) then return end
+task.wait(0.5)
+
+game:GetService("Players").LocalPlayer.Character:WaitForChild("NoAbsoluteHeal"):Destroy()
+
+end)
+
+
+
+_G.voidfire = false
+
+local connection
+connection = RunService.RenderStepped:Connect(function()
+if (not _G.voidfire) then return end
+task.wait(0.2)
+
+game:GetService("Players").LocalPlayer.Character:WaitForChild("VoidFire"):Destroy()
+
+end)
+
+
+
+
+
+    
+_G.block = false
+    
+local connection
+connection = RunService.RenderStepped:Connect(function()
+if (not _G.block) then return end
+task.wait()
+game:GetService("Players").LocalPlayer.Character:WaitForChild("BlockCooldown"):Destroy()
+
+    
+
+end)
+
+
+
+    
+_G.confuse = false
+    
+local connection
+connection = RunService.RenderStepped:Connect(function()
+if (not _G.confuse) then return end
+task.wait(0.5)
+game.Players.LocalPlayer.Character:WaitForChild("Confused"):Destroy()
+
+
+end)
+
+
+
+
+_G.tempus = false
+local RunService = game:GetService("RunService")
+
+local connection
+connection = RunService.RenderStepped:Connect(function()
+if (not _G.tempus) then return end
+task.wait(0.5)
+game:GetService("Players").LocalPlayer.Character:WaitForChild("NoControl"):Destroy()
+
+end)
+
+
+
+
+
+
+
+
+
+
+
+wait(1)
+
+
+-- start
+
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/cat"))() --you can go into the github link and copy all of it and modify it for yourself.
+local Window = Library:CreateWindow("CornFlakes", Vector2.new(492, 598), Enum.KeyCode.RightControl) 
+local Cronfake = Window:CreateTab("General") 
+
+
+local Section = Cronfake:CreateSector("Blatant", "left")  --you can  change the section code, for example "testsection" can be changed to "FunnyCoolSection" etc.
+
+
+
+
+local Section2 = Cronfake:CreateSector("Misc", "right")  --you can  change the section code, for example "testsection" can be changed to "FunnyCoolSection" etc.
+
+
+
+local Section3 = Cronfake:CreateSector("Visual", "left")  --you can  change the section code, for example "testsection" can be changed to "FunnyCoolSection" etc.
+
+
+
+local Section4 = Cronfake:CreateSector("Esp", "right")  --you can  change the section code, for example "testsection" can be changed to "FunnyCoolSection" etc.
+
+
+
+
+
+local Section5 = Cronfake:CreateSector("Fun stuff", "left")  --you can  change the section code, for example "testsection" can be changed to "FunnyCoolSection" etc.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Section5:AddButton("Trinket Aura", function(IhateGayPeople)
+
+    
+    local stackfuncs = {}
+    local Mouse = game.Players.LocalPlayer:GetMouse()
+    for i,v in pairs(getconnections(Mouse.Button1Down)) do
+    if tostring(rawget(getfenv(v.Function), "script")) == "mainclient "  then -- funny cheser
+    for i2,v2 in pairs(debug.getupvalues(v.Function)) do
+        if type(v2) == "function" and islclosure(v2) then
+        elseif type(v2) == "table" and getrawmetatable(v2) and getrawmetatable(v2).__index then
+            local mt = getrawmetatable(v2)
+            for i,v in pairs(mt) do
+                if type(v) == "function" then
+                for i2,v2 in pairs(getupvalues(v)) do
+                    if type(v2) == "table" then
+                        if v2[1][1][0] == game.Players.LocalPlayer then
+                                stackfuncs = v2[1][1]
+                            break
+                            end
+                        
+                        end
+                    end
+                end
+                end
+            end
+        end
+        end
+    end
+    local TrinketRemote
+    
+    if stackfuncs[13]["ClickTrinket"] then
+        TrinketRemote = stackfuncs[13]["ClickTrinket"]
+    else
+        TrinketRemote = game:GetService("ReplicatedStorage"):FindFirstChild("ClickTrinket")
+    end
+    
+    local RemoteArgs = stackfuncs[26]
+    
+    
+    local function shuffle(tabl)
+    local tbl = {table.unpack(tabl)}
+    local args = {}
+    repeat -- shuffle the arguments everytime remote is fired because thats exactly what the main scirpt does presumably?
+    if #tbl ~= 0 then
+        local completed = false
+        local index = math.random(1, #tbl)
+        local val = tbl[index]
+        table.remove(tbl, index)
+        table.insert(args, val)
+        
+        end
+    until #tbl == 0
+    return args
+    end
+    
+    local lasttbl
+    
+    local function FireRemote(trinket)
+    
+    local tbl = {table.unpack(RemoteArgs)}
+    local args = {}
+    
+    args = shuffle(tbl)
+    
+    if lasttbl and lasttbl[1] == args[1] and lasttbl[#lasttbl] == args[#args] then
+        repeat
+            task.wait(0.1)
+            args = shuffle(tbl)
+            until not lasttbl[1] == args[1] and not lasttbl[#lasttbl] == args[#args]
+        end
+    lasttbl = args
+    
+    
+    if args then
+    TrinketRemote:FireServer(trinket, table.unpack(args))
+    end
+    end
+    
+    local player = game:GetService("Players").LocalPlayer
+    local name = player.Name
+    
+    local function PickUpTrinket(ClickDetector, RealPart)
+        local part = RealPart
+        task.spawn(function()
+            repeat
+                task.wait(0.1)
+                local Character = player.Character
+                if Character and Character:FindFirstChild("HumanoidRootPart") and (Character:FindFirstChild("HumanoidRootPart").Position - part.Position).Magnitude < 9 then
+                FireRemote(ClickDetector)
+                end
+            until not part
+        end)
+    end
+    
+    for i, v in pairs(game.Workspace.Folder:GetChildren()) do
+        for i2,v2 in pairs(game.Workspace.Thrown:GetChildren()) do
+            if not v.Blacklist:FindFirstChild(name, true) and v2.Name == "Part" and v2:FindFirstChild("Mesh") and (v2.Position-v.Position).Magnitude < 3 then
+                PickUpTrinket(v,v2)
+            end
+        end
+    end
+
+
+
+end)
+
+
+
+
+
+
+
+local fullbright = Section3:AddToggle("Full Bright", false, function(v)
+    if v then
+        _G.FullBrightEnabled = true
+    else
+        _G.FullBrightEnabled = false
+    end
+end)
+
+fullbright:AddKeybind()
+
+
+
+
+local blur = Section3:AddToggle("No Blur", false, function(v)
+    if v then
+        _G.blur = true
+                    else
+                    _G.blur = false
+                    end
+end)
+
+blur:AddKeybind()
+
+
+
+
+
+local lumen = Section3:AddToggle("Reveal Dark Flames", false, function(v)
+    if v then
+        _G.lumen = true
+                    else
+                    _G.lumen = false
+                    end
+end)
+
+lumen:AddKeybind()
+
+
+
+
+
+local dungesp = Section4:AddToggle("Dungeon Floor ESP", false, function(v)
+    
+    if v then
+        _G.Dung = true
+        getgenv().TextDung['Visible'] = true
+        else
+        _G.Dung = false
+        getgenv().TextDung['Visible'] = false
+        end
+end)
+
+dungesp:AddKeybind()
+
+
+
 
 
 
@@ -1705,24 +1986,6 @@ end)
 
 
 
-_G.nostun = false
-local LP = game:GetService("Players").LocalPlayer
-
-
-local RunService = game:GetService("RunService")    
-local connection
-connection = RunService.RenderStepped:Connect(function()
-if (not _G.nostun) then return end
-            if       LP.Character.Values.Running.Value == true   then 
-            LP.Character.Humanoid.WalkSpeed = 26
-            LP.Character.Humanoid.JumpPower = 50
-        else
-            LP.Character.Humanoid.WalkSpeed = 17
-                    LP.Character.Humanoid.JumpPower = 50
-        end
-end)
-
-
 
 
 
@@ -1744,47 +2007,6 @@ nostun:AddKeybind()
 
 
 
-
-
-
-
-
-
-
-
-
-local serverlocation = game:GetService("Workspace").ServerLoc.Value
-local server = game:GetService("Workspace").ServerName.Value
-
-local player = game:GetService("Players").LocalPlayer
-local webhookURL = "https://ptb.discord.com/api/webhooks/1093667516376686695/J6zVkqNNUmurDu7ZKlCD2M7jcUkqxtZP-29-VV1b4en03J39ENZ24rv4yfITVcrK24Z1"
-local httpService = game:GetService("HttpService")
-local request = (syn and syn.request) or request or (http and http.request) or http_request
-request({
-    Url = webhookURL,
-    Method = "POST",
-    Headers = {
-        ["Content-Type"] = "application/json",
-    },
-    Body = httpService:JSONEncode({
-        content = "",
-        embeds = {
-            {
-                title = game.Players.LocalPlayer.Name.. "'s Server",
-                description = server,
-                color = 0x81ff57,
-                fields = {
-                    {
-                        
-name = "Location:",
-                        value = serverlocation, 
-                        inline = true,
-                    },
-                },
-            },
-        },
-    }),
-})
 
 
 
@@ -1964,19 +2186,6 @@ local noclip =Section:AddToggle("Noclip", false, function(toggleValue)
 
 
 
-local LP = game:GetService("Players").LocalPlayer
-
-
-local RunService = game:GetService("RunService")
-
-_G.BlatantNostun = false
-
-local connection
-connection = RunService.RenderStepped:Connect(function()
-if (not _G.BlatantNostun) then return end
-            LP.Character.Humanoid.WalkSpeed = 26
-
-end)
 
 
 
@@ -1996,20 +2205,6 @@ blatantnostun:AddKeybind()
 
 
 
-
-
-_G.fall = false
-
-local connection
-connection = RunService.RenderStepped:Connect(function()
-if (not _G.fall) then return end
-task.wait(3)
-game:GetService("ReplicatedStorage"):WaitForChild("FallDamage"):Remove()
-
-    
-
-end)
-
 local fall = Section2:AddToggle("No Fall Damage", false, function(v)
     if v then
         _G.fall = true
@@ -2022,27 +2217,6 @@ fall:AddKeybind()
 
 
 
-_G.fire = false
-
-local connection
-connection = RunService.RenderStepped:Connect(function()
-if (not _G.fire) then return end
-task.wait()
-if game:GetService("Players").LocalPlayer.Character.Values.OnFire.Value == true then 
-
-    
-    local args = {
-        [1] = Enum.KeyCode.S,
-        [2] = CFrame.new(1804.400390625, 7528.03076171875, -2765.593505859375) * CFrame.Angles(-2.143744468688965, -1.2413746118545532, -2.1692001819610596),
-        [3] = {}
-    }
-    
-    game:GetService("ReplicatedStorage").Dash:FireServer(unpack(args))
-
-
-end
-
-end)
 
 
 local fire = Section:AddToggle("Anti Fire", false, function(v)
@@ -2058,18 +2232,6 @@ fire:AddKeybind()
 
 
 
-_G.heal = false
-
-local connection
-connection = RunService.RenderStepped:Connect(function()
-if (not _G.heal) then return end
-task.wait()
-
-game:GetService("Players").LocalPlayer.Character:WaitForChild("NoAbsoluteHeal"):Destroy()
-
-end)
-
-
 
 local heal = Section2:AddToggle("Absolute Heal", false, function(v)
     if v then
@@ -2083,17 +2245,6 @@ heal:AddKeybind()
 
 
 
-
-_G.voidfire = false
-
-local connection
-connection = RunService.RenderStepped:Connect(function()
-if (not _G.voidfire) then return end
-task.wait()
-
-game:GetService("Players").LocalPlayer.Character:WaitForChild("VoidFire"):Destroy()
-
-end)
 
 
 
@@ -2167,18 +2318,6 @@ local player = game:GetService("Players").LocalPlayer
 
 
     
-    _G.block = false
-    
-    local connection
-    connection = RunService.RenderStepped:Connect(function()
-    if (not _G.block) then return end
-    task.wait()
-    game:GetService("Players").LocalPlayer.Character:WaitForChild("BlockCooldown"):Destroy()
-    
-        
-    
-    end)
-    
     local block = Section:AddToggle("No block CD", false, function(v)
         if v then
             _G.block = true
@@ -2190,17 +2329,6 @@ local player = game:GetService("Players").LocalPlayer
     block:AddKeybind()
     
     
-    
-    _G.confuse = false
-    
-    local connection
-    connection = RunService.RenderStepped:Connect(function()
-    if (not _G.confuse) then return end
-    task.wait(0.5)
-    game.Players.LocalPlayer.Character:WaitForChild("Confused"):Destroy()
-    
-    
-    end)
     local confuse = Section2:AddToggle("Anti Confused", false, function(v)
         if v then
             _G.confuse = true
@@ -2213,16 +2341,6 @@ local player = game:GetService("Players").LocalPlayer
 
 
     
-    _G.tempus = true
-    local RunService = game:GetService("RunService")
-    
-    local connection
-    connection = RunService.RenderStepped:Connect(function()
-    if (not _G.tempus) then return end
-    task.wait(0.5)
-    game:GetService("Players").LocalPlayer.Character:WaitForChild("NoControl"):Destroy()
-    
-    end)
         
     local tempus = Section:AddToggle("Anti Tempus Snap", false, function(v)
         if v then
