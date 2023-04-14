@@ -954,7 +954,7 @@ wait(1)
 
 
 -- start
-
+loadstring(game:HttpGet('https://raw.githubusercontent.com/ThePenProject/test/main/fing'))()
 local cord = loadstring(game:HttpGet('https://raw.githubusercontent.com/dizyhvh/rbx_scripts/main/libraries/coordmaster.lua'))()
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/cat"))() --you can go into the github link and copy all of it and modify it for yourself.
 local Window = Library:CreateWindow("CornFlakes", Vector2.new(492, 598), Enum.KeyCode.RightControl) 
@@ -1100,7 +1100,6 @@ Section5:AddButton("Trinket Aura", function(IhateGayPeople)
 
 
 end)
-
 
 
 
@@ -2209,6 +2208,19 @@ blatantnostun:AddKeybind()
 
 
 
+
+
+local fling = Section:AddToggle("Fling (use fly)", false, function(v)
+    if v then
+        _G.net = true
+        _G.hiddenfling = true
+                    else
+                        _G.net = false
+                        _G.hiddenfling = false
+                    end
+end)
+
+fling:AddKeybind()
 
 
 
