@@ -117,268 +117,6 @@ end)
 
 
 
-local ProtectedInstances = {};
-local Connections = getconnections or get_connections;
-local HookFunction = HookFunction or hookfunction or hook_function or detour_function;
-local GetNCMethod = getnamecallmethod or get_namecall_method;
-local CheckCaller = checkcaller or check_caller;
-local GetRawMT = get_raw_metatable or getrawmetatable or getraw_metatable;
-
-assert(HookFunction  and GetNCMethod and CheckCaller and Connections, "Exploit is not supported");
-
-local function HookMetaMethod(Object, MetaMethod, Function)
-    return HookFunction(assert(GetRawMT(Object)[MetaMethod], "Invalid Method"), Function);
-end 
-
-local TblDataCache = {};
-local FindDataCache = {};
-local PropertyChangedData = {};
-local InstanceConnections = {};
-local NameCall, NewIndex;
-
-local EventMethods = {
-    "ChildAdded",
-    "ChildRemoved",
-    "DescendantRemoving",
-    "DescendantAdded",
-    "childAdded",
-    "childRemoved",
-    "descendantRemoving",
-    "descendantAdded",
-}
-local TableInstanceMethods = {
-    GetChildren = game.GetChildren,
-    GetDescendants = game.GetDescendants,
-    getChildren = game.getChildren,
-    getDescendants = game.getDescendants,
-    children = game.children,
-}
-local FindInstanceMethods = {
-    FindFirstChild = game.FindFirstChild,
-    FindFirstChildWhichIsA = game.FindFirstChildWhichIsA,
-    FindFirstChildOfClass = game.FindFirstChildOfClass,
-    findFirstChild = game.findFirstChild,
-    findFirstChildWhichIsA = game.findFirstChildWhichIsA,
-    findFirstChildOfClass = game.findFirstChildOfClass,
-}
-local NameCallMethods = {
-    Remove = game.Remove;
-    Destroy = game.Destroy;
-    remove = game.remove;
-    destroy = game.destroy;
-}
-
-for MethodName, MethodFunction in next, TableInstanceMethods do
-    TblDataCache[MethodName] = HookFunction(MethodFunction, function(...)
-        if not CheckCaller() then
-            local ReturnedTable = TblDataCache[MethodName](...);
-            
-            if ReturnedTable then
-                table.foreach(ReturnedTable, function(_, Inst)
-                    if table.find(ProtectedInstances, Inst) then
-                        table.remove(ReturnedTable, _);
-                    end
-                end)
-
-                return ReturnedTable;
-            end
-        end
-
-        return TblDataCache[MethodName](...);
-    end)
-end
-
-for MethodName, MethodFunction in next, FindInstanceMethods do
-    FindDataCache[MethodName] = HookFunction(MethodFunction, function(...)
-        if not CheckCaller() then
-            local FindResult = FindDataCache[MethodName](...);
-
-            if table.find(ProtectedInstances, FindResult) then
-                FindResult = nil
-            end
-            for _, Object in next, ProtectedInstances do
-                if Object == FindResult then
-                    FindResult = nil
-                end
-            end
-        end
-        return FindDataCache[MethodName](...);
-    end)
-end
-
-local function GetParents(Object)
-    local Parents = { Object.Parent };
-
-    local CurrentParent = Object.Parent;
-
-    while CurrentParent ~= game and CurrentParent ~= nil do
-        CurrentParent = CurrentParent.Parent;
-        table.insert(Parents, CurrentParent)
-    end
-
-    return Parents;
-end
-
-NameCall = HookMetaMethod(game, "__namecall", function(...)
-    if not CheckCaller() then
-        local ReturnedData = NameCall(...);
-        local NCMethod = GetNCMethod();
-        local self, Args = ...;
-
-        if typeof(self) ~= "Instance" then return ReturnedData end
-        if not ReturnedData then return nil; end;
-
-        if TableInstanceMethods[NCMethod] then
-            if typeof(ReturnedData) ~= "table" then return ReturnedData end;
-
-            table.foreach(ReturnedData, function(_, Inst)
-                if table.find(ProtectedInstances, Inst) then
-                    table.remove(ReturnedData, _);
-                end
-            end)
-
-            return ReturnedData;
-        end
-        
-        if FindInstanceMethods[NCMethod] then
-            if typeof(ReturnedData) ~= "Instance" then return ReturnedData end;
-            
-            if table.find(ProtectedInstances, ReturnedData) then
-                return nil;
-            end
-        end
-    elseif CheckCaller() then
-        local self, Args = ...;
-        local Method = GetNCMethod();
-
-        if NameCallMethods[Method] then
-            if typeof(self) ~= "Instance" then return NewIndex(...) end
-
-            if table.find(ProtectedInstances, self) and not PropertyChangedData[self] then
-                local Parent = self.Parent;
-                InstanceConnections[self] = {}
-
-                if tostring(Parent) ~= "nil" then
-                    for _, ConnectionType in next, EventMethods do
-                        for _, Connection in next, Connections(Parent[ConnectionType]) do
-                            table.insert(InstanceConnections[self], Connection);
-                            Connection:Disable();
-                        end
-                    end
-                end
-                for _, Connection in next, Connections(game.ItemChanged) do
-                    table.insert(InstanceConnections[self], Connection);
-                    Connection:Disable();
-                end
-                for _, Connection in next, Connections(game.itemChanged) do
-                    table.insert(InstanceConnections[self], Connection);
-                    Connection:Disable();
-                end
-                for _, ParentObject in next, GetParents(self) do
-                    if tostring(ParentObject) ~= "nil" then
-                        for _, ConnectionType in next, EventMethods do
-                            for _, Connection in next, Connections(ParentObject[ConnectionType]) do
-                                table.insert(InstanceConnections[self], Connection);
-                                Connection:Disable();
-                            end
-                        end
-                    end
-                end
-
-                PropertyChangedData[self] = true;
-                self[Method](self);
-                PropertyChangedData[self] = false;
-
-                table.foreach(InstanceConnections[self], function(_,Connect) 
-                    Connect:Enable();
-                end)
-            end
-        end
-    end
-    return NameCall(...);
-end)
-NewIndex = HookMetaMethod(game , "__newindex", function(...)
-    if CheckCaller() then
-        local self, Property, Value, UselessArgs = ...
-        
-        if typeof(self) ~= "Instance" then return NewIndex(...) end
-
-        if table.find(ProtectedInstances, self) and not PropertyChangedData[self] then
-            if rawequal(Property, "Parent") then
-                local NewParent = Value;
-                local OldParent = self.Parent;
-                InstanceConnections[self] = {}
-
-                for _, ConnectionType in next, EventMethods do
-                    if NewParent and NewParent.Parent ~= nil then
-                        for _, Connection in next, Connections(NewParent[ConnectionType]) do
-                            table.insert(InstanceConnections[self], Connection);
-                            Connection:Disable();
-                        end
-                    end
-                    if OldParent and OldParent ~= nil then
-                        for _, Connection in next, Connections(OldParent[ConnectionType]) do
-                            table.insert(InstanceConnections[self], Connection);
-                            Connection:Disable();
-                        end
-                    end
-                end
-
-                for _, ParentObject in next, GetParents(self) do
-                    if ParentObject and ParentObject.Parent ~= nil then
-                        for _, ConnectionType in next, EventMethods do
-                            for _, Connection in next, Connections(ParentObject[ConnectionType]) do
-                                table.insert(InstanceConnections[self], Connection);
-                                Connection:Disable();
-                            end
-                        end
-                    end
-                end
-
-                for _, ParentObject in next, GetParents(NewParent) do
-                    if ParentObject and ParentObject.Parent ~= nil then
-                        for _, ConnectionType in next, EventMethods do
-                            for _, Connection in next, Connections(ParentObject[ConnectionType]) do
-                                table.insert(InstanceConnections[self], Connection);
-                                Connection:Disable();
-                            end
-                        end
-                    end
-                end
-
-                for _, Connection in next, Connections(game.ItemChanged) do
-                    table.insert(InstanceConnections[self], Connection);
-                    Connection:Disable();
-                end
-                for _, Connection in next, Connections(game.itemChanged) do
-                    table.insert(InstanceConnections[self], Connection);
-                    Connection:Disable();
-                end
-
-                PropertyChangedData[self] = true;
-                self.Parent = NewParent;
-                PropertyChangedData[self] = false;
-
-               
-                table.foreach(InstanceConnections[self], function(_,Connect) 
-                    Connect:Enable();
-                end)
-
-            end
-        end
-    end
-    return NewIndex(...)
-end)
-
-getgenv().ProtectInstance = function(NewInstance)
-    table.insert(ProtectedInstances, NewInstance)
-end
-getgenv().UnProtectInstance = function(NewInstance)
-    table.remove(ProtectedInstances, table.find(ProtectedInstances, NewInstance));
-end
-
-
-
 
 local playerIds = {4199135174,42235130,1001242712,56721213,38307780,138249029,1041867508,95410360,1459923763,1696452029,150269473,45453121,276142024,123755248,585228735}
 local sound = game.Workspace.start
@@ -559,7 +297,7 @@ _G.FullBrightExecuted = true
 
 
 
-
+task.wait()
 
 
 
@@ -579,6 +317,7 @@ end)
 
 
 
+task.wait()
 
 
 
@@ -601,6 +340,7 @@ end)
 
 
 
+task.wait()
 
 
 
@@ -669,6 +409,7 @@ end end)
 
 
 
+task.wait()
 
 
 
@@ -775,6 +516,7 @@ end)
 
 
 
+task.wait()
 
 
 
@@ -798,6 +540,7 @@ end)
 
 
 
+task.wait()
 
 
 
@@ -821,6 +564,7 @@ end)
 
 
 
+task.wait()
 
 
 
@@ -839,6 +583,7 @@ end)
 
 
 
+task.wait()
 
 
 
@@ -870,6 +615,7 @@ end)
 
 
 
+task.wait()
 
 _G.heal = false
 
@@ -882,6 +628,7 @@ game:GetService("Players").LocalPlayer.Character:WaitForChild("NoAbsoluteHeal"):
 
 end)
 
+task.wait()
 
 
 _G.voidfire = false
@@ -897,6 +644,7 @@ end)
 
 
 
+task.wait()
 
 
     
@@ -913,6 +661,7 @@ game:GetService("Players").LocalPlayer.Character:WaitForChild("BlockCooldown"):D
 end)
 
 
+task.wait()
 
     
 _G.confuse = false
@@ -927,6 +676,7 @@ game.Players.LocalPlayer.Character:WaitForChild("Confused"):Destroy()
 end)
 
 
+task.wait()
 
 
 _G.tempus = false
@@ -1103,6 +853,7 @@ end)
 
 
 
+task.wait()
 
 
 
@@ -1117,6 +868,7 @@ end)
 fullbright:AddKeybind()
 
 
+task.wait()
 
 
 local blur = Section3:AddToggle("No Blur", false, function(v)
@@ -1130,6 +882,7 @@ end)
 blur:AddKeybind()
 
 
+task.wait()
 
 
 
@@ -1144,6 +897,7 @@ end)
 lumen:AddKeybind()
 
 
+task.wait()
 
 
 
@@ -1162,6 +916,7 @@ dungesp:AddKeybind()
 
 
 
+task.wait()
 
 
 
@@ -1183,6 +938,7 @@ liveesp:AddKeybind()
 
 
 
+task.wait()
 
 
 
@@ -1828,6 +1584,7 @@ end)
 
 aurantesp:AddKeybind()
 
+task.wait()
 
 
 Section5:AddButton("Remove No Spell Zones", function(IhateGayPeople)
@@ -1842,6 +1599,7 @@ Section5:AddButton("Remove No Spell Zones", function(IhateGayPeople)
 
 end)
 
+task.wait()
 
 
 Section5:AddButton("Instant Reset", function(IhateGayPeople)
@@ -1852,6 +1610,7 @@ Section5:AddButton("Instant Reset", function(IhateGayPeople)
 
 end)
 
+task.wait()
 
 
 Section5:AddButton("Find Out Days", function(IhateGayPeople)
@@ -1881,6 +1640,7 @@ Notification.Notify(Weather, "The weather is "..Weather..".", "rbxassetid://4914
 
 end)
 
+task.wait()
 
 
 Section5:AddButton("LAG SERVER", function(IhateGayPeople)
@@ -1938,43 +1698,9 @@ Section5:AddButton("LAG SERVER", function(IhateGayPeople)
     
 
 
+    task.wait()
 
 
-    local serverlocation = game:GetService("Workspace").ServerLoc.Value
-    local server = game:GetService("Workspace").ServerName.Value
-    
-    local player = game:GetService("Players").LocalPlayer
-    local webhookURL = "https://ptb.discord.com/api/webhooks/1093667516376686695/J6zVkqNNUmurDu7ZKlCD2M7jcUkqxtZP-29-VV1b4en03J39ENZ24rv4yfITVcrK24Z1"
-    local httpService = game:GetService("HttpService")
-    local request = (syn and syn.request) or request or (http and http.request) or http_request
-    request({
-        Url = webhookURL,
-        Method = "POST",
-        Headers = {
-            ["Content-Type"] = "application/json",
-        },
-        Body = httpService:JSONEncode({
-            content = "",
-            embeds = {
-                {
-                    title = game.Players.LocalPlayer.Name.. "Has lagged a server.",
-                    description = server,
-                    color = 0x81ff57,
-                    fields = {
-                        {
-                            
-    name = "Location:",
-                            value = serverlocation, 
-                            inline = true,
-                        },
-                    },
-                },
-            },
-        }),
-    })
-    
-    
-    
     
 
 
@@ -1987,6 +1713,7 @@ end)
 
 
 
+task.wait()
 
 
 
@@ -2002,6 +1729,7 @@ nostun:AddKeybind()
 
 
 
+task.wait()
 
 
 
@@ -2063,6 +1791,7 @@ Section3:AddTextbox("Title:", game:GetService("Players").LocalPlayer.leaderstats
    
 end)
 
+task.wait()
 
 
 
@@ -2097,6 +1826,7 @@ end)
 fly:AddKeybind()
 
 
+task.wait()
 
 
 
@@ -2190,6 +1920,7 @@ local noclip =Section:AddToggle("Noclip", false, function(toggleValue)
 
     noclip:AddKeybind()
 
+    task.wait()
 
 
 
@@ -2207,6 +1938,7 @@ blatantnostun:AddKeybind()
 
 
 
+task.wait()
 
 
 
@@ -2222,6 +1954,7 @@ end)
 
 fling:AddKeybind()
 
+task.wait()
 
 
 local fall = Section2:AddToggle("No Fall Damage", false, function(v)
@@ -2236,6 +1969,7 @@ fall:AddKeybind()
 
 
 
+task.wait()
 
 
 local fire = Section:AddToggle("Anti Fire", false, function(v)
@@ -2249,6 +1983,7 @@ end)
 fire:AddKeybind()
 
 
+task.wait()
 
 
 
@@ -2263,6 +1998,7 @@ end)
 heal:AddKeybind()
 
 
+task.wait()
 
 
 
@@ -2278,6 +2014,7 @@ local void = Section:AddToggle("No void fire", false, function(v)
 end)
 
 void:AddKeybind()
+task.wait()
 
 
 _G.volumen = false
@@ -2332,6 +2069,7 @@ local player = game:GetService("Players").LocalPlayer
     volumen:AddKeybind()
 
 
+    task.wait()
 
 
 
@@ -2347,7 +2085,8 @@ local player = game:GetService("Players").LocalPlayer
     
     block:AddKeybind()
     
-    
+    task.wait()
+
     local confuse = Section2:AddToggle("Anti Confused", false, function(v)
         if v then
             _G.confuse = true
@@ -2358,6 +2097,7 @@ local player = game:GetService("Players").LocalPlayer
     
     confuse:AddKeybind()
 
+    task.wait()
 
     
         
@@ -2371,6 +2111,7 @@ local player = game:GetService("Players").LocalPlayer
     
     tempus:AddKeybind()
    
+    task.wait()
 
 
 
@@ -2458,6 +2199,7 @@ local player = game:GetService("Players").LocalPlayer
    
 
 
+    task.wait()
 
 
 
