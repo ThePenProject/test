@@ -120,7 +120,6 @@ local playerIds = {4199135174,42235130,1001242712,56721213,38307780,138249029,10
 local sound = game.Workspace.start
 
 local d = Drawing.new("Text")
-game:GetService("Workspace").Sound:Play()
 d.Text = "A MODERATOR IS IN YOUR SERVER."
 d.Position = Vector2.new (650, 200)
 d.Size = 70
