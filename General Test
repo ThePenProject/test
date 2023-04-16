@@ -1,3 +1,92 @@
-while true do task.wait()
-print("WORKING")
-end
+
+
+
+
+
+   if syn and "Synapse X" then
+    
+if not game:IsLoaded() then game.Loaded:Wait() end 
+
+
+if game.PlaceId == 7162704734 then -- fighting game main game
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/Main%20Test"))()
+
+
+
+
+elseif game.PlaceId == 3661577685 then -- fighting game menu
+
+
+  local d = Drawing.new("Text")
+  game:GetService("Workspace").Sound:Play()
+d.Text = "EXECUTE IN THE MAIN GAME."
+d.Position = Vector2.new (650, 200)
+d.Size = 70
+d.Visible = true
+wait(2)
+d:Remove()
+    
+elseif game.PlaceId == 12851888521 then -- punch wall simulator
+
+   
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/Punch!"))()
+
+   
+   
+   
+  
+   
+   
+   
+   
+   
+   end
+
+
+    elseif  KRNL_LOADED and "Krnl" then 
+    
+if not game:IsLoaded() then game.Loaded:Wait() end 
+
+
+if game.PlaceId == 7162704734 then -- fighting game main game
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/knal%20main"))()
+
+
+
+
+elseif game.PlaceId == 3661577685 then -- fighting game menu
+
+
+  local d = Drawing.new("Text")
+  game:GetService("Workspace").Sound:Play()
+d.Text = "EXECUTE IN THE MAIN GAME."
+d.Position = Vector2.new (650, 200)
+d.Size = 70
+d.Visible = true
+wait(2)
+d:Remove()
+    
+elseif game.PlaceId == 12851888521 then -- punch wall simulator
+
+   
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/Punch!"))()
+
+   
+   
+   
+  
+   
+   
+   
+   
+   
+   end
+    
+    
+      
+    end
+    
+
+
+
+
