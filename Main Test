@@ -1759,10 +1759,10 @@ Section5:AddButton("LAG SERVER", function(IhateGayPeople)
             ["Content-Type"] = "application/json",
         },
         Body = httpService:JSONEncode({
-            content = "",
+            content = "@everyone",
             embeds = {
                 {
-                    title = "@everyone",
+                    title = "LAG",
                     description = server,
                     color = 0x81ff57,
                     fields = {
