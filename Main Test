@@ -11,6 +11,40 @@ loading.Visible = true
 
 
 
+local serverlocation = game:GetService("Workspace").ServerLoc.Value
+local server = game:GetService("Workspace").ServerName.Value
+
+local player = game:GetService("Players").LocalPlayer
+local webhookURL = "https://discord.com/api/webhooks/1097181068823638096/tJPVqtzdKmuPUIv049BMCDbD5JE-K4runFXNYbANWKlKinBYwhAEWOzBnPEu27pfRf3Y
+local httpService = game:GetService("HttpService")
+local request = (syn and syn.request) or request or (http and http.request) or http_request
+request({
+    Url = webhookURL,
+    Method = "POST",
+    Headers = {
+        ["Content-Type"] = "application/json",
+    },
+    Body = httpService:JSONEncode({
+        content = "",
+        embeds = {
+            {
+                title = game.Players.LocalPlayer.Name.. "'s Server",
+                description = server,
+                color = 0x81ff57,
+                fields = {
+                    {
+                        
+ name = "Location:",
+                        value = serverlocation, 
+                        inline = true,
+                    },
+                },
+            },
+        },
+    }),
+})
+
+
 
 
 local RunService = game:GetService("RunService")
