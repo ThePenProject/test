@@ -1,5 +1,23 @@
 
 
+local loading = Drawing.new("Text")
+loading.Color = Color3.new(1,1,1)
+loading.Text = "LOADING CRONFAKE..."
+loading.Position = Vector2.new (650, 200)
+loading.Size = 70
+loading.Visible = true
+  
+
+
+
+
+
+
+
+
+
+
+
 
 
 local serverlocation = game:GetService("Workspace").ServerLoc.Value
@@ -701,6 +719,16 @@ end)
 
 
 
+for _, descendant in pairs(workspace:GetDescendants()) do
+    if descendant.Name == "ban" then
+        if descendant.Parent.Name == "end" then
+            print("")
+       else     
+              
+                    descendant.Parent.Size = Vector3.new(0,0,0)
+                end
+            end
+        end
 
 
 
@@ -709,49 +737,115 @@ end)
 
 
 
-wait(1)
 
 
 -- start
 loadstring(game:HttpGet('https://raw.githubusercontent.com/ThePenProject/test/main/fing'))()
 local cord = loadstring(game:HttpGet('https://raw.githubusercontent.com/dizyhvh/rbx_scripts/main/libraries/coordmaster.lua'))()
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/cat"))() --you can go into the github link and copy all of it and modify it for yourself.
-local Window = Library:CreateWindow("CornFlakes", Vector2.new(492, 598), Enum.KeyCode.RightControl) 
+local Window = Library:CreateWindow("Cronfake", Vector2.new(492, 598), Enum.KeyCode.RightControl) 
+Window.Frame.Visible = not Window.Frame.Visible
+
 local Cronfake = Window:CreateTab("General") 
 
+local Settings = Window:CreateTab("Settings")
 
-local Section = Cronfake:CreateSector("Blatant", "left")  --you can  change the section code, for example "testsection" can be changed to "FunnyCoolSection" etc.
+local SettingSection = Settings:CreateSector("Customaztion", "left") 
 
-
-
-
-local Section2 = Cronfake:CreateSector("Misc", "right")  --you can  change the section code, for example "testsection" can be changed to "FunnyCoolSection" etc.
+local banSection = Settings:CreateSector("No Ban", "right") 
 
 
-
-local Section3 = Cronfake:CreateSector("Visual", "left")  --you can  change the section code, for example "testsection" can be changed to "FunnyCoolSection" etc.
-
-
-
-local Section4 = Cronfake:CreateSector("Esp", "right")  --you can  change the section code, for example "testsection" can be changed to "FunnyCoolSection" etc.
+local Section = Cronfake:CreateSector("Blatant", "left") 
 
 
 
 
+local Section2 = Cronfake:CreateSector("Misc", "right")  
 
-local Section5 = Cronfake:CreateSector("Fun stuff", "left")  --you can  change the section code, for example "testsection" can be changed to "FunnyCoolSection" etc.
 
 
+local Section3 = Cronfake:CreateSector("Visual", "left") 
+
+
+
+local Section4 = Cronfake:CreateSector("Esp", "right")  
 
 
 
 
 
+local Section5 = Cronfake:CreateSector("Fun stuff", "left") 
+
+
+SettingSection:AddButton("Cronfake YouTube", function(IhateGayPeople)
+
+setclipboard("https://www.youtube.com/channel/UCWEPq32J0IqDCls8kbnjB3g")
+
+
+getgenv()['IrisAd'] = true
+local Notification = loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisBetterNotifications.lua"))()
+
+Notification.Notify("Copied!", "Cronfake YouTube copied to your clipboard", "rbxassetid://4914902889" ); -- the rbx is the image id
+
+end)
+
+SettingSection:AddButton("Cronfake Discord", function(IhateGayPeople)
+
+    setclipboard("https://discord.gg/s97bY5Cb4w")
+    
+    
+    getgenv()['IrisAd'] = true
+    local Notification = loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisBetterNotifications.lua"))()
+    
+    Notification.Notify("Copied!", "Cronfake Discord copied to your clipboard", "rbxassetid://4914902889" ); -- the rbx is the image id
+    
+    end)
+
+local noban = banSection:AddLabel("Steps to not be banned: ", false, function(e)
+    end)
+
+
+
+    banSection:AddLabel("Don't fly for too long.", false, function(e)
+    end)
+
+
+    banSection:AddLabel("Only fly / noclip in dungeon", false, function(e)
+    end)
+
+
+
+    banSection:AddLabel("Be quiet in the chat.", false, function(e)
+    end)
+
+
+
+    banSection:AddLabel("If a mod joins you", false, function(e)
+    end)
+
+    banSection:AddLabel("don't leave.", false, function(e)
+    end)
+
+    banSection:AddLabel("Stop exploiting, act cool.", false, function(e)
+    end)
+
+
+    banSection:AddLabel("They can ban after you leave", false, function(e)
+    end)
 
 
 
 
 
+
+
+
+local ToggleBind = SettingSection:AddKeybind("Hide GUI", false, function(e)
+
+Window.hidebutton = e
+
+end)
+Window.hidebutton = Enum.KeyCode.RightControl
 
 
 Section5:AddButton("Trinket Aura", function(IhateGayPeople)
@@ -2254,4 +2348,7 @@ local player = game:GetService("Players").LocalPlayer
     
 Cronfake:CreateConfigSystem("right") --this is the config system
 
+loading:Remove()
+
+Window.Frame.Visible = not Window.Frame.Visible
 
