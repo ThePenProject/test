@@ -49,8 +49,8 @@ if syn and "Synapse X" then
   
   
   if game.PlaceId == 7162704734 then -- fighting game main game
-  loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/knal%20main"))()
-  
+  -- loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/knal%20main"))()
+  print("no")
   
   
   
