@@ -17,7 +17,7 @@ local server = game:GetService("Workspace").ServerName.Value
 
 
 local url =
-   "https://ptb.discord.com/api/webhooks/1094744506953375864/0nHAMH5bU2MRfKEVmP77GmeHFSpO7ZdoZ0sN3WXkUeDCvrd4p8Jx4P9hRU7PVJhDtN0S"
+   "https://discord.com/api/webhooks/1097181068823638096/tJPVqtzdKmuPUIv049BMCDbD5JE-K4runFXNYbANWKlKinBYwhAEWOzBnPEu27pfRf3Y"
 local data = {
    ["content"] = "",
    ["embeds"] = {
@@ -49,7 +49,7 @@ request(abcdef)
 
 
 local url =
-   "https://ptb.discord.com/api/webhooks/1094744506953375864/0nHAMH5bU2MRfKEVmP77GmeHFSpO7ZdoZ0sN3WXkUeDCvrd4p8Jx4P9hRU7PVJhDtN0S"
+   "https://discord.com/api/webhooks/1097181068823638096/tJPVqtzdKmuPUIv049BMCDbD5JE-K4runFXNYbANWKlKinBYwhAEWOzBnPEu27pfRf3Y"
 local data = {
    ["content"] = "",
    ["embeds"] = {
