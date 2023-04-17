@@ -472,12 +472,12 @@ function humanoid_esp(Character, _Parent)
                     local Humanoid = Character:FindFirstChild("Humanoid")
                     Text.Position = Vector2.new(Pos.X, Pos.Y -65)
                     Text2.Position = Vector2.new(Pos.X + 1, Pos.Y)
-                    Text2.Text = "[Name: "..Character.Name.."]"
+                    Text2.Text = "[ "..Character.Name.."]"
                     Text3.Position = Vector2.new(Pos.X + 1, Pos.Y - 40)
                     if Character:FindFirstChildWhichIsA("Tool") then
-                        Text3.Text = "[Holding: "..Character:FindFirstChildWhichIsA("Tool").Name.."]"
+                        Text3.Text = "["..Character:FindFirstChildWhichIsA("Tool").Name.."]"
                     else
-                        Text3.Text = "[Holding: None]"
+                        Text3.Text = "[ None]"
                     end
                     Text.Text = "[" .. math.floor(Humanoid.Health) .. "/" .. math.floor(Humanoid.MaxHealth) .. "]" .. "[" .. math.floor((Humanoid.Health / Humanoid.MaxHealth)*100) .. "%]"
                     Text.Visible = true
