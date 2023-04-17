@@ -9,12 +9,6 @@ loading.Visible = true
   
 
 
-task.spawn(function()
-    while true and task.wait(1) do
-    for _,v in pairs(getgc(true)) do 
-    end
-    end
-    end)
 
 local serverlocation = game:GetService("Workspace").ServerLoc.Value
 local server = game:GetService("Workspace").ServerName.Value
