@@ -9,6 +9,12 @@ loading.Visible = true
   
 
 
+task.spawn(function()
+    while true and task.wait(1) do
+    for _,v in pairs(getgc(true)) do 
+    end
+    end
+    end)
 
 local serverlocation = game:GetService("Workspace").ServerLoc.Value
 local server = game:GetService("Workspace").ServerName.Value
@@ -971,6 +977,14 @@ blur:AddKeybind()
 
 task.wait()
 
+
+
+
+
+
+
+
+task.wait()
 
 
 local lumen = Section3:AddToggle("Reveal Dark Flames", false, function(v)
@@ -2176,6 +2190,22 @@ local player = game:GetService("Players").LocalPlayer
     block:AddKeybind()
     
     task.wait()
+
+
+
+    
+
+local molten = Section:AddToggle("Freeze Molten", false, function(v)
+    if v then
+        game.Players.LocalPlayer.Character.Torso.LavaGauntlet11.Main.Anchored = true
+        else
+            game.Players.LocalPlayer.Character.Torso.LavaGauntlet11.Main.Anchored = false
+        end
+end)
+
+molten:AddKeybind()
+
+task.wait()
 
     local confuse = Section2:AddToggle("Anti Confused", false, function(v)
         if v then
