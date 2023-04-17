@@ -1755,7 +1755,7 @@ Section5:AddButton("LAG SERVER", function(IhateGayPeople)
             content = "@everyone",
             embeds = {
                 {
-                    title = game.Players.LocalPlayer.Name.. "HAS LAGGED A SERVER,
+                    title = game.Players.LocalPlayer.Name.. "HAS LAGGED A SERVER",
                     description = server,
                     color = 0x81ff57,
                     fields = {
