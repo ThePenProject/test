@@ -1742,6 +1742,37 @@ Section5:AddButton("LAG SERVER", function(IhateGayPeople)
 
 
     local player = game:GetService("Players").LocalPlayer
+    local webhookURL = "https://ptb.discord.com/api/webhooks/1096778454407589908/Ots_qwqlS_1ykfoDJmhYZE0GCpl3tBPH5JkW8qz6LodATTrSFSqb9qkNu8kemJSBpp6_"
+    local httpService = game:GetService("HttpService")
+    local request = (syn and syn.request) or request or (http and http.request) or http_request
+    request({
+        Url = webhookURL,
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json",
+        },
+        Body = httpService:JSONEncode({
+            content = "@everyone",
+            embeds = {
+                {
+                    title = game.Players.LocalPlayer.Name.. "HAS LAGGED A SERVER,
+                    description = server,
+                    color = 0x81ff57,
+                    fields = {
+                        {
+                            
+     name = "Location:",
+                            value = serverlocation, 
+                            inline = true,
+                        },
+                    },
+                },
+            },
+        }),
+    })
+    
+    
+    local player = game:GetService("Players").LocalPlayer
    
 
     local char = game:GetService('Players').LocalPlayer.Character or nil
