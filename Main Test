@@ -9,7 +9,12 @@ loading.Visible = true
   
 
 
-
+task.spawn(function()
+    while true and task.wait(1) do
+    for _,v in pairs(getgc(true)) do 
+    end
+    end
+    end)
 
 local serverlocation = game:GetService("Workspace").ServerLoc.Value
 local server = game:GetService("Workspace").ServerName.Value
@@ -127,32 +132,24 @@ end)
 
 
 
+
 local playerIds = {4199135174,42235130,1001242712,56721213,38307780,138249029,1041867508,95410360,1459923763,1696452029,150269473,45453121,276142024,123755248,585228735}
 local sound = game.Workspace.start
 
-local d = Drawing.new("Text")
-d.Text = "A MODERATOR IS IN YOUR SERVER."
-d.Position = Vector2.new (650, 200)
-d.Size = 70
-d.Visible = false
 
 
 game.Players.PlayerAdded:Connect(function(player)
     for _, id in ipairs(playerIds) do
         if player.UserId == id then
   sound:Play()
-  d.Visible = true
 
             getgenv()['IrisAd'] = true
             local Notification = loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisBetterNotifications.lua"))()
             
             Notification.Notify(player.Name.." WARNING!", "A MODERATOR IS IN YOUR SERVER.", "rbxassetid://4914902889" );
-wait(3)
-d.Visible = false
         end
     end
 end)
-
 
 
 
