@@ -528,7 +528,7 @@ task.wait()
 
 _G.nostun = false
 local LP = game:GetService("Players").LocalPlayer
-
+local startspeed = LP.Character.Humanoid.WalkSpeed
 
 local RunService = game:GetService("RunService")    
 local connection
@@ -538,9 +538,15 @@ if (not _G.nostun) then return end
             LP.Character.Humanoid.WalkSpeed = 26
             LP.Character.Humanoid.JumpPower = 50
         else
-            LP.Character.Humanoid.WalkSpeed = 17
+            LP.Character.Humanoid.WalkSpeed = startspeed
                     LP.Character.Humanoid.JumpPower = 50
-        end
+
+
+         
+            print("wait")
+            
+        
+    end
 end)
 
 
@@ -1955,6 +1961,11 @@ Section:AddSlider("Fly Speed", 1, 1, 5, 1, function(State)
 end)
 
 task.wait()
+
+
+
+
+
 
 
 local _settings = {
