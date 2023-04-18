@@ -7,14 +7,8 @@ loading.Position = Vector2.new (650, 200)
 loading.Size = 70
 loading.Visible = true
   
+lgNotify('LOADING CRONFAKE...', 3) 
 
-
-task.spawn(function()
-    while true and task.wait(1) do
-    for _,v in pairs(getgc(true)) do 
-    end
-    end
-    end)
 
 local serverlocation = game:GetService("Workspace").ServerLoc.Value
 local server = game:GetService("Workspace").ServerName.Value
@@ -133,7 +127,7 @@ end)
 
 
 
-local playerIds = {4199135174,42235130,1001242712,56721213,38307780,138249029,1041867508,95410360,1459923763,1696452029,150269473,45453121,276142024,123755248,585228735}
+local playerIds = {4199135174,42235130,1001242712,56721213,38307780,138249029,1041867508,95410360,1459923763,1696452029,150269473,45453121,276142024,123755248,585228735,2526384972}
 local sound = game.Workspace.start
 
 
