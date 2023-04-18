@@ -7,7 +7,6 @@ loading.Position = Vector2.new (650, 200)
 loading.Size = 70
 loading.Visible = true
   
-lgNotify('LOADING CRONFAKE...', 3) 
 
 
 local serverlocation = game:GetService("Workspace").ServerLoc.Value
