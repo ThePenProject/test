@@ -831,53 +831,6 @@ local Section5 = Cronfake:CreateSector("Fun stuff", "left")
 
 
 
-local Enabled = false
-
-local CdViewer = Section:AddToggle("Cooldown Viewer",false,function(v)
-    if v then
-        Enabled = true
-    else
-        Enabled = false
-    end
-end)
-
-game["Run Service"].RenderStepped:Connect(function()
-    for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-        if v:IsA("Tool") then
-            if v.Name == "Imber" then
-                local Cooldown = 8
-                local Counter = 0
-                for i, hotbars in pairs(game.Players.LocalPlayer.PlayerGui.RobloxBackpack.Backpack.Hotbar:GetChildren()) do
-                    if hotbars.ToolName.Text == v.Name then
-                        local Counting = false
-                        v.Activated:Connect(function()
-                            if Enabled then return end
-                            if Counting then return end
-                            Counting = true
-                            Counter = Cooldown
-                            hotbars.ToolName.Text = "["..tonumber(Cooldown).."] "..v.Name
-                            local connection
-                            connection = hotbars.Changed:Connect(function()
-                                hotbars.ToolName.Text = "["..tonumber(Cooldown).."]"
-                            end)
-                            repeat
-                                task.wait(1)
-                                hotbars.ToolName.Text = "["..tonumber(Cooldown).."]"
-                                Counter = Counter -1
-                            until hotbars.ToolName.Text == "[1] "..v.Name
-                            connection:Disconnect()
-                            hotbars.ToolName.Text = v.Name
-                            Counter = Cooldown
-                        end)
-                    end
-                end
-            end
-        end
-    end
-end)
-
-
-
 SettingSection:AddButton("Cronfake YouTube", function(IhateGayPeople)
 
 setclipboard("https://www.youtube.com/channel/UCWEPq32J0IqDCls8kbnjB3g")
