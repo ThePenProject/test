@@ -475,56 +475,68 @@ function humanoid_esp(Character, _Parent)
 						end
 						if Character:FindFirstChild("Wizard AI") then
 							Text2.Text = "[Sorcerer]"
+                            Text2.Color = Color3.fromRGB(77, 15, 255)
                             Text3.Text = ""
 
 						elseif Character:FindFirstChild("KnightModel") then
 							Text2.Text = "[Spectral Knight]"
+                            Text2.Color = Color3.fromRGB(160, 160, 160)
                             Text3.Text = ""
 						elseif Character:FindFirstChild("Humanoid").MaxHealth == 2000000000 then
 							Text2.Text = "[Void Fly]"
-							Text.Text = "1"
+                            Text2.Color = Color3.fromRGB(0, 0, 0)
+							Text.Text = "[1]"
                             Text3.Text = ""
 
 						elseif Character:FindFirstChild("Humanoid").MaxHealth >= 175 and Character:FindFirstChild("Humanoid").MaxHealth <= 5000 and Character:FindFirstChild("Waist") then
 							Text2.Text = "[Golem]"
+                            Text2.Color = Color3.fromRGB(0, 153, 0)
                             Text3.Text = ""
 
 						elseif Character.Name == "_DungeonClone" and Character.Humanoid.MaxHealth <= 125 then
 							Text2.Text = "[Crawler]"
+                            Text2.Color = Color3.fromRGB(204, 102, 0)
                             Text3.Text = ""
 
                             
 						elseif Character.Name == "_DungeonClone" and Character.Humanoid.MaxHealth > 125 then
                             Text3.Text = ""
 							Text2.Text = "[Goblin Champ]"
+                            Text2.Color = Color3.fromRGB(76, 153, 0)
 
                                   
-						elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth >= 71  and game:GetService("Workspace")["Angel Eye"]["Eye AI"] then
+						elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth >= 71  and  game:GetService("Workspace"):FindFirstChild("Angel Eye") then
                             Text3.Text = ""
 							Text2.Text = "[Divine Sentinel]"
-
-                        elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth == 14 and game:GetService("Workspace").Worm["Worm AI"] then
+                            Text2.Color = Color3.fromRGB(255, 255, 255)
+                        
+                        elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth == 14 and game:GetService("Workspace"):FindFirstChild("Worm") then
                             Text3.Text = ""
 							Text2.Text = "[Worm]"
+                            Text2.Color = Color3.fromRGB(51, 25, 0)
 
                         elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth == 16 then
                             Text3.Text = ""
 							Text2.Text = "[Plague Wisps]"
+                            Text2.Color = Color3.fromRGB(255, 0, 255)
 
 
-						elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth >= 50 and game:GetService("Workspace")["Flame Beast"] then
+						elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth >= 50 and game:GetService("Workspace"):FindFirstChild("Flame Beast") then
                             Text3.Text = ""
 							Text2.Text = "[Inferno Sprite]"
+                            Text2.Color = Color3.fromRGB(255, 128, 0)
 
 
-                        elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth >= 58  and game:GetService("Workspace")["Dark Eye"] then
+                        elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth >= 58  and game:GetService("Workspace"):FindFirstChild("Dark Eye") then
                             Text3.Text = ""
 							Text2.Text = "[Eclipse Orb]"
+                            Text2.Color = Color3.fromRGB(255, 51, 51)
 
 
-                        elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth < 101 and Character.Humanoid.MaxHealth > 99 and game:GetService("Workspace")["Terra Mob"] then
+                        elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth < 101 and Character.Humanoid.MaxHealth > 99 and game:GetService("Workspace"):FindFirstChild("Terra Mob") then
                             Text3.Text = ""
 							Text2.Text = "[Goblin Tower]"
+                            Text2.Color = Color3.fromRGB(0, 204, 102)
 
 
                         elseif Character.Name == "CorvusFight"  then
@@ -1806,6 +1818,14 @@ Notification.Notify(Weather, "The weather is "..Weather..".", "rbxassetid://4914
 end)
 
 task.wait()
+
+
+ 
+
+
+task.wait()
+
+
 
 Section5:AddButton("LAG SERVER", function(IhateGayPeople)
 
