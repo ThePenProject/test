@@ -1,5 +1,4 @@
 
-local scriptName= lgVarsTbl['scriptName']
 local hoursRemaining= lgVarsTbl['hoursRemaining']
 local lastHwidResetDate= lgVarsTbl['lastHwidResetDate']
 local HwidResetCounts= lgVarsTbl['HwidResetCounts']
@@ -10,9 +9,9 @@ local DiscordAvatar = lgVarsTbl['DiscordAvatar']
 local expirationDateTime= lgVarsTbl['expirationDateTime']
 local WhitelistedDate= lgVarsTbl['WhitelistedDate']
 local totalExecutions = lgVarsTbl['totalExecutions']
-local uniqueKeyId = lgVarsTbl['key_id']
 local ScriptVersion = lgVarsTbl['ScriptVersion']
 
+print(ScriptVersion,totalExecutions,WhitelistedDate,DiscordId,DiscordUsername)
 
 local loading = Drawing.new("Text")
 loading.Color = Color3.new(1,1,1)
