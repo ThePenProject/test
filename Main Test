@@ -1,9 +1,4 @@
 
-local DiscordUsername = lgVarsTbl['DiscordUsername']
-local DiscordAvatar = lgVarsTbl['DiscordAvatar']
-local totalExecutions = lgVarsTbl['totalExecutions']
-
-print(totalExecutions,DiscordUsername)
 
 local loading = Drawing.new("Text")
 loading.Color = Color3.new(1,1,1)
@@ -13,10 +8,6 @@ loading.Size = 70
 loading.Visible = true
   
 
-getgenv()['IrisAd'] = true
-local Notification = loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisBetterNotifications.lua"))()
-
-Notification.Notify("Hi, "..DiscordUsername..".", "Total Executions:"..totalExecutions, DiscordAvatar ); -- the rbx is the image id
 
 
 local serverlocation = game:GetService("Workspace").ServerLoc.Value
