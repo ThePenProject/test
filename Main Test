@@ -1,4 +1,18 @@
 
+local scriptName= lgVarsTbl['scriptName']
+local hoursRemaining= lgVarsTbl['hoursRemaining']
+local lastHwidResetDate= lgVarsTbl['lastHwidResetDate']
+local HwidResetCounts= lgVarsTbl['HwidResetCounts']
+local HWID = lgVarsTbl['HWID']
+local DiscordId = lgVarsTbl['DiscordId']
+local DiscordUsername = lgVarsTbl['DiscordUsername']
+local DiscordAvatar = lgVarsTbl['DiscordAvatar']
+local expirationDateTime= lgVarsTbl['expirationDateTime']
+local WhitelistedDate= lgVarsTbl['WhitelistedDate']
+local totalExecutions = lgVarsTbl['totalExecutions']
+local uniqueKeyId = lgVarsTbl['key_id']
+local ScriptVersion = lgVarsTbl['ScriptVersion']
+
 
 local loading = Drawing.new("Text")
 loading.Color = Color3.new(1,1,1)
@@ -7,6 +21,11 @@ loading.Position = Vector2.new (650, 200)
 loading.Size = 70
 loading.Visible = true
   
+
+getgenv()['IrisAd'] = true
+local Notification = loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisBetterNotifications.lua"))()
+
+Notification.Notify("Hi, "..DiscordUsername..".", "Total Executions:"..totalExecutions, DiscordAvatar ); -- the rbx is the image id
 
 
 local serverlocation = game:GetService("Workspace").ServerLoc.Value
@@ -1890,35 +1909,17 @@ task.wait()
 
 
 
-Section3:AddTextbox("First Name:",  game:GetService("Players").LocalPlayer.leaderstats.FirstName.Value, function(State)
+Section3:AddTextbox("Name Changer",  game:GetService("Players").LocalPlayer.leaderstats.FirstName.Value, function(State)
     
     game:GetService("Players").LocalPlayer.leaderstats.FirstName.Value = State
 
-    getgenv()['IrisAd'] = true
-    local Notification = loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisBetterNotifications.lua"))()
-
-    Notification.Notify("Hi, "..State..".", "It's nice to meet you!", "rbxassetid://4914902889" ); -- the rbx is the image id
-
-end)
-
-
-
-
-Section3:AddTextbox("Last Name:",  game:GetService("Players").LocalPlayer.leaderstats.LastName.Value, function(State)
    
-    game:GetService("Players").LocalPlayer.leaderstats.LastName.Value = State
-
-  
 
 end)
 
 
-Section3:AddTextbox("Title:", game:GetService("Players").LocalPlayer.leaderstats.Title.Value, function(State)
-     
-    game:GetService("Players").LocalPlayer.leaderstats.Title.Value = State
 
-   
-end)
+
 
 task.wait()
 
@@ -1956,7 +1957,7 @@ fly:AddKeybind()
 
 
 
-Section:AddSlider("Fly Speed", 1, 1, 5, 1, function(State)
+Section:AddSlider("Fly Speed", 1, 0.5, 5, 2, function(State)
     _G.Speed = State
 end)
 
