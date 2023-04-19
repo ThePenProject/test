@@ -1,12 +1,8 @@
 
-local hoursRemaining= lgVarsTbl['hoursRemaining']
-local lastHwidResetDate= lgVarsTbl['lastHwidResetDate']
-local HwidResetCounts= lgVarsTbl['HwidResetCounts']
 local HWID = lgVarsTbl['HWID']
 local DiscordId = lgVarsTbl['DiscordId']
 local DiscordUsername = lgVarsTbl['DiscordUsername']
 local DiscordAvatar = lgVarsTbl['DiscordAvatar']
-local expirationDateTime= lgVarsTbl['expirationDateTime']
 local WhitelistedDate= lgVarsTbl['WhitelistedDate']
 local totalExecutions = lgVarsTbl['totalExecutions']
 local ScriptVersion = lgVarsTbl['ScriptVersion']
