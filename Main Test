@@ -1,13 +1,9 @@
 
-local HWID = lgVarsTbl['HWID']
-local DiscordId = lgVarsTbl['DiscordId']
 local DiscordUsername = lgVarsTbl['DiscordUsername']
 local DiscordAvatar = lgVarsTbl['DiscordAvatar']
-local WhitelistedDate= lgVarsTbl['WhitelistedDate']
 local totalExecutions = lgVarsTbl['totalExecutions']
-local ScriptVersion = lgVarsTbl['ScriptVersion']
 
-print(ScriptVersion,totalExecutions,WhitelistedDate,DiscordId,DiscordUsername)
+print(totalExecutions,DiscordUsername)
 
 local loading = Drawing.new("Text")
 loading.Color = Color3.new(1,1,1)
