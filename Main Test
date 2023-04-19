@@ -423,7 +423,6 @@ end end)
 task.wait()
 
 
-
 local Camera = game:GetService("Workspace").CurrentCamera
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
@@ -432,95 +431,163 @@ local on = false
 
 
 function humanoid_esp(Character, _Parent)
-    local Text = Drawing.new("Text")
-    Text.Visible = false
-    Text.Center = true
-    Text.Outline = true
-    Text.Font = 3
-    Text.Color = Color3.fromRGB(255, 255, 255)
-    Text.Size = 25
-    local Text2 = Drawing.new("Text")
-    Text2.Visible = false
-    Text2.Center = true
-    Text2.Outline = true
-    Text2.Font = 3
-    Text2.Color = Color3.fromRGB(255, 255, 255)
-    Text2.Size = 16
-    local Text3 = Drawing.new("Text")
-    Text3.Visible = false
-    Text3.Center = true
-    Text3.Outline = true
-    Text3.Font = 3
-    Text3.Color = Color3.fromRGB(255, 255, 255)
-    Text3.Size = 16
+	local Text = Drawing.new("Text")
+	Text.Visible = false
+	Text.Center = true
+	Text.Outline = true
+	Text.Font = 3
+	Text.Color = Color3.fromRGB(255, 255, 255)
+	Text.Size = 25
+	local Text2 = Drawing.new("Text")
+	Text2.Visible = false
+	Text2.Center = true
+	Text2.Outline = true
+	Text2.Font = 3
+	Text2.Color = Color3.fromRGB(255, 255, 255)
+	Text2.Size = 16
+	local Text3 = Drawing.new("Text")
+	Text3.Visible = false
+	Text3.Center = true
+	Text3.Outline = true
+	Text3.Font = 3
+	Text3.Color = Color3.fromRGB(255, 255, 255)
+	Text3.Size = 16
 
-    local RenderStepped
-    RenderStepped = RunService.Stepped:Connect(function()
-        if on then
-            if Character and Character.Parent ~= nil then
-                if Character:FindFirstChildWhichIsA("Part") then
+	local RenderStepped
+	RenderStepped = RunService.Stepped:Connect(function()
+		if on then
+			if Character and Character.Parent ~= nil then
+				if Character:FindFirstChildWhichIsA("Part") then
 
-                local Pos, onScreen = Camera:WorldToViewportPoint(Character:FindFirstChildOfClass("Part").Position)
+					local Pos, onScreen = Camera:WorldToViewportPoint(Character:FindFirstChildOfClass("Part").Position)
 
-                if onScreen and Character:FindFirstChild("Humanoid") then
-                    local Humanoid = Character:FindFirstChild("Humanoid")
-                    Text.Position = Vector2.new(Pos.X, Pos.Y -65)
-                    Text2.Position = Vector2.new(Pos.X + 1, Pos.Y)
-                    Text2.Text = "[ "..Character.Name.."]"
-                    Text3.Position = Vector2.new(Pos.X + 1, Pos.Y - 40)
-                    if Character:FindFirstChildWhichIsA("Tool") then
-                        Text3.Text = "["..Character:FindFirstChildWhichIsA("Tool").Name.."]"
-                    else
-                        Text3.Text = "[ None]"
-                    end
-                    Text.Text = "[" .. math.floor(Humanoid.Health) .. "/" .. math.floor(Humanoid.MaxHealth) .. "]" .. "[" .. math.floor((Humanoid.Health / Humanoid.MaxHealth)*100) .. "%]"
-                    Text.Visible = true
-                    Text2.Visible = true
-                    Text3.Visible = true
-                else
-                    Text.Visible = false
-                    Text2.Visible = false
-                    Text3.Visible = false
-                end
-                end
-            else
-                Text.Visible = false
-                Text2.Visible = false
-                Text3.Visible = false
-                Text:Remove()
-                Text2:Remove()
-                Text3:Remove()
-                RenderStepped:Disconnect()
-            end
-        else
-            Text.Visible = false
-            Text2.Visible = false
-            Text3.Visible = false
-        end
-    end)
+					if onScreen and Character:FindFirstChild("Humanoid") then
+						local Humanoid = Character:FindFirstChild("Humanoid")
+						Text.Position = Vector2.new(Pos.X, Pos.Y -65)
+						Text2.Position = Vector2.new(Pos.X + 1, Pos.Y)
+						Text2.Text = "["..Character.Name.."]"
+						Text3.Position = Vector2.new(Pos.X + 1, Pos.Y - 40)
+						Text.Text = "[" .. math.floor(Humanoid.Health) .. "/" .. math.floor(Humanoid.MaxHealth) .. "]" .. "[" .. math.floor((Humanoid.Health / Humanoid.MaxHealth)*100) .. "%]"
+						if Character:FindFirstChildWhichIsA("Tool") then
+							Text3.Text = "["..Character:FindFirstChildWhichIsA("Tool").Name.."]"
+						else
+							Text3.Text = "[None]"
+						end
+						if Character:FindFirstChild("Wizard AI") then
+							Text2.Text = "[Sorcerer]"
+                            Text3.Text = ""
+
+						elseif Character:FindFirstChild("KnightModel") then
+							Text2.Text = "[Spectral Knight]"
+                            Text3.Text = ""
+						elseif Character:FindFirstChild("Humanoid").MaxHealth == 2000000000 then
+							Text2.Text = "[Void Fly]"
+							Text.Text = "1"
+                            Text3.Text = ""
+
+						elseif Character:FindFirstChild("Humanoid").MaxHealth >= 175 and Character:FindFirstChild("Humanoid").MaxHealth <= 5000 and Character:FindFirstChild("Waist") then
+							Text2.Text = "[Golem]"
+                            Text3.Text = ""
+
+						elseif Character.Name == "_DungeonClone" and Character.Humanoid.MaxHealth <= 125 then
+							Text2.Text = "[Crawler]"
+                            Text3.Text = ""
+
+                            
+						elseif Character.Name == "_DungeonClone" and Character.Humanoid.MaxHealth > 125 then
+                            Text3.Text = ""
+							Text2.Text = "[Goblin Champ]"
+
+                                  
+						elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth >= 71  and game:GetService("Workspace")["Angel Eye"]["Eye AI"] then
+                            Text3.Text = ""
+							Text2.Text = "[Divine Sentinel]"
+
+                        elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth == 14 and game:GetService("Workspace").Worm["Worm AI"] then
+                            Text3.Text = ""
+							Text2.Text = "[Worm]"
+
+                        elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth == 16 then
+                            Text3.Text = ""
+							Text2.Text = "[Plague Wisps]"
+
+
+						elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth >= 50 and game:GetService("Workspace")["Flame Beast"] then
+                            Text3.Text = ""
+							Text2.Text = "[Inferno Sprite]"
+
+
+                        elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth >= 58  and game:GetService("Workspace")["Dark Eye"] then
+                            Text3.Text = ""
+							Text2.Text = "[Eclipse Orb]"
+
+
+                        elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth < 101 and Character.Humanoid.MaxHealth > 99 and game:GetService("Workspace")["Terra Mob"] then
+                            Text3.Text = ""
+							Text2.Text = "[Goblin Tower]"
+
+
+                        elseif Character.Name == "CorvusFight"  then
+							Text2.Text = "[Corvus]"
+                            Text3.Text = ""
+
+
+
+
+
+
+
+
+						end
+						Text.Visible = true
+						Text2.Visible = true
+						Text3.Visible = true
+					else
+						Text.Visible = false
+						Text2.Visible = false
+						Text3.Visible = false
+					end
+				end
+			else
+				Text.Visible = false
+				Text2.Visible = false
+				Text3.Visible = false
+				Text:Remove()
+				Text2:Remove()
+				Text3:Remove()
+				RenderStepped:Disconnect()
+			end
+		else
+			Text.Visible = false
+			Text2.Visible = false
+			Text3.Visible = false
+		end
+	end)
 end
 
 for i,Descendant in pairs(workspace.Live:GetDescendants()) do
-    if Descendant:IsA("Humanoid") then
-        if Descendant.Parent.Name == game.Players.LocalPlayer.Name then
-            math.random(1,2)
-        else
-            humanoid_esp(Descendant.Parent, Descendant.Parent.Parent)
-        end
-    end
+	if Descendant:IsA("Humanoid") then
+		if Descendant.Parent.Name == game.Players.LocalPlayer.Name then
+			math.random(1,2)
+		else
+			humanoid_esp(Descendant.Parent, Descendant.Parent.Parent)
+		end
+	end
 end
 
 workspace.Live.DescendantAdded:Connect(function(Descendant)
-    if Descendant:IsA("Humanoid") then
-        if Descendant.Parent.Name == game.Players.LocalPlayer.Name then
-            math.random(1,2)
-        else
-            humanoid_esp(Descendant.Parent, Descendant.Parent.Parent)
-        end
-    end
+	if Descendant:IsA("Humanoid") then
+		if Descendant.Parent.Name == game.Players.LocalPlayer.Name then
+			math.random(1,2)
+		else
+			humanoid_esp(Descendant.Parent, Descendant.Parent.Parent)
+		end
+	end
 end)
 
 
+
+task.wait()
 
 task.wait()
 
@@ -762,11 +829,11 @@ local Section4 = Cronfake:CreateSector("Esp", "right")
 local Section5 = Cronfake:CreateSector("Fun stuff", "left") 
 
 
-local added = {}
-local Counting = false
+
+
 local Enabled = false
 
-local CdViewer = Section:AddToggle("M1 Cooldown Viewer",false,function(v)
+local CdViewer = Section:AddToggle("Cooldown Viewer",false,function(v)
     if v then
         Enabled = true
     else
@@ -774,70 +841,40 @@ local CdViewer = Section:AddToggle("M1 Cooldown Viewer",false,function(v)
     end
 end)
 
-local function additem(item,Cd)
-    local MaxNum = Cd
-    local CurrentNumber = MaxNum
-    for i, v in pairs(game.Players.LocalPlayer.PlayerGui.RobloxBackpack.Backpack.Hotbar:GetChildren()) do
-        if v.ToolName.Text == item.Name then
-            item.Activated:Connect(function()
-                if Enabled == false then return end
-                if Counting == true then return end
-                Counting = true
-                CurrentNumber = MaxNum
-                repeat
-                    task.wait(1)
-                    v.ToolName.Text = "["..tostring(CurrentNumber).."] "..item.Name
-                    local connection
-                    connection = v.ToolName.Changed:Connect(function()
-                             v.ToolName.Text = "["..tostring(CurrentNumber).."] "..item.Name
-                            task.wait(1)
+game["Run Service"].RenderStepped:Connect(function()
+    for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if v:IsA("Tool") then
+            if v.Name == "Imber" then
+                local Cooldown = 8
+                local Counter = 0
+                for i, hotbars in pairs(game.Players.LocalPlayer.PlayerGui.RobloxBackpack.Backpack.Hotbar:GetChildren()) do
+                    if hotbars.ToolName.Text == v.Name then
+                        local Counting = false
+                        v.Activated:Connect(function()
+                            if Enabled then return end
+                            if Counting then return end
+                            Counting = true
+                            Counter = Cooldown
+                            hotbars.ToolName.Text = "["..tonumber(Cooldown).."] "..v.Name
+                            local connection
+                            connection = hotbars.Changed:Connect(function()
+                                hotbars.ToolName.Text = "["..tonumber(Cooldown).."]"
+                            end)
+                            repeat
+                                task.wait(1)
+                                hotbars.ToolName.Text = "["..tonumber(Cooldown).."]"
+                                Counter = Counter -1
+                            until hotbars.ToolName.Text == "[1] "..v.Name
                             connection:Disconnect()
-                    end) 
-                    CurrentNumber = CurrentNumber -1
-                until v.ToolName.Text == "[1] "..item.Name
-                Counting = false
-                v.ToolName.Text = item.Name
-                CurrentNumber = MaxNum
-            end)
-        end
-    end
-    return item.Name
-end
-
-
-
-
-game["Run Service"].Stepped:Connect(function()
-    task.wait(0.5)
-    for i, items in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-        if items:IsA("Tool") and items.Name == "Imber" then
-            if not added["Imber"] then
-                added["Imber"] = true
-                local Name = additem(items,8)
-            end
-
-
-
-        elseif items:IsA("Tool") and items.Name == "Bag Trap" then
-            if not added["Bag Trap"] then
-                added["Bag Trap"] = true
-                local Name = additem(items,13)
-            end
-
-
-
-
-
-
-        elseif items:IsA("Tool") and items.Name == "toolname2" then
-            if not added["toolname2"] then
-                added["toolname2"] = true
-                local Name = additem(items,5)
+                            hotbars.ToolName.Text = v.Name
+                            Counter = Cooldown
+                        end)
+                    end
+                end
             end
         end
     end
 end)
-
 
 
 
