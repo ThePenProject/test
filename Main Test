@@ -423,6 +423,7 @@ end end)
 task.wait()
 
 
+
 local Camera = game:GetService("Workspace").CurrentCamera
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
@@ -474,8 +475,8 @@ function humanoid_esp(Character, _Parent)
 							Text3.Text = "[None]"
 						end
 						if Character:FindFirstChild("Wizard AI") then
-							Text2.Text = "[Sorcerer]"
-                            Text2.Color = Color3.fromRGB(77, 15, 255)
+							Text2.Text = "[Mage]"
+                            Text2.Color = Color3.fromRGB(127, 0, 255)
                             Text3.Text = ""
 
 						elseif Character:FindFirstChild("KnightModel") then
@@ -513,7 +514,7 @@ function humanoid_esp(Character, _Parent)
                         elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth == 14 and game:GetService("Workspace"):FindFirstChild("Worm") then
                             Text3.Text = ""
 							Text2.Text = "[Worm]"
-                            Text2.Color = Color3.fromRGB(51, 25, 0)
+                            Text2.Color = Color3.fromRGB(204, 102, 0)
 
                         elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth == 16 then
                             Text3.Text = ""
@@ -538,15 +539,9 @@ function humanoid_esp(Character, _Parent)
 							Text2.Text = "[Goblin Tower]"
                             Text2.Color = Color3.fromRGB(0, 204, 102)
 
-
                         elseif Character.Name == "CorvusFight"  then
 							Text2.Text = "[Corvus]"
                             Text3.Text = ""
-
-
-
-
-
 
 
 
@@ -645,8 +640,13 @@ _G.BlatantNostun = false
 local connection
 connection = RunService.RenderStepped:Connect(function()
 if (not _G.BlatantNostun) then return end
+if LP.Character then 
+    if LP.Character:FindFirstChild("Humanoid") then
             LP.Character.Humanoid.WalkSpeed = 26
-
+    else
+        print("dead, wait")
+    end
+end
 end)
 
 
@@ -685,7 +685,7 @@ local connection
 connection = RunService.RenderStepped:Connect(function()
 if (not _G.fire) then return end
 task.wait()
-if game:GetService("Players").LocalPlayer.Character.Values then
+if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Values") then
 if game:GetService("Players").LocalPlayer.Character.Values.OnFire.Value == true then 
 
     
@@ -697,7 +697,8 @@ if game:GetService("Players").LocalPlayer.Character.Values.OnFire.Value == true 
     
     game:GetService("ReplicatedStorage").Dash:FireServer(unpack(args))
 
-
+else
+    print("")
 end
 end
 end)
@@ -1118,6 +1119,79 @@ liveesp:AddKeybind()
 task.wait()
 
 
+local Camera = game:GetService("Workspace").CurrentCamera
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+
+local on = false
+
+UserInputService.InputBegan:Connect(function(input, gpe)
+    if gpe then return end
+    
+    if input.KeyCode == Enum.KeyCode.LeftAlt then
+       on = not on
+    end
+end)
+
+function humanoid_esp(Character, _Parent)
+    local Text = Drawing.new("Text")
+    Text.Visible = false
+    Text.Center = true
+    Text.Outline = true
+    Text.Font = 3
+    Text.Color = Color3.fromRGB(255, 255, 255)
+    Text.Size = 16
+    
+    local RenderStepped
+    RenderStepped = RunService.RenderStepped:Connect(function()
+        if on then
+        if Character and Character.Parent ~= nil then
+            local Pos, onScreen = Camera:WorldToViewportPoint(Character:FindFirstChildOfClass("Part").Position)
+            
+            if onScreen and Character:FindFirstChild("Humanoid") then
+                local Humanoid = Character:FindFirstChild("Humanoid")
+                Text.Position = Vector2.new(Pos.X, Pos.Y)
+                Text.Text = ""..Character.Name..""
+                Text.Visible = true
+            else
+                Text.Visible = false
+            end
+        else
+            Text.Visible = false
+            Text:Remove()
+            RenderStepped:Disconnect()
+        end
+        else
+            Text.Visible = false
+        end
+    end)
+end
+
+for i,Descendant in pairs(workspace.NPCs:GetDescendants()) do
+    if Descendant:IsA("Humanoid") then
+        humanoid_esp(Descendant.Parent, Descendant.Parent.Parent)
+    end
+end
+
+workspace.NPCs.DescendantAdded:Connect(function(Descendant)
+    if Descendant:IsA("Humanoid") then
+        humanoid_esp(Descendant.Parent, Descendant.Parent.Parent)
+    end
+end)
+
+wait(3)
+
+
+
+local npcesp = Section4:AddToggle("Npc ESP", false, function(v)
+    if v then
+        on = true
+                    else
+                    on = false
+                    end
+end)
+
+npcesp:AddKeybind()
 
 
 
@@ -1820,10 +1894,7 @@ end)
 task.wait()
 
 
- 
 
-
-task.wait()
 
 
 
@@ -2303,13 +2374,10 @@ local player = game:GetService("Players").LocalPlayer
 local molten = Section:AddToggle("Freeze Molten", false, function(v)
     task.wait()
     if v then
-        task.wait()
         game.Players.LocalPlayer.Character.Torso.LavaGauntlet11.Main.Anchored = true
-        task.wait()
         else
-            task.wait()
             game.Players.LocalPlayer.Character.Torso.LavaGauntlet11.Main.Anchored = false
-            task.wait()
+        
         end
 end)
 
@@ -2434,15 +2502,10 @@ task.wait()
 
 
 
-
-
-
-
-
-
-
     
 Cronfake:CreateConfigSystem("right") --this is the config system
+
+
 
 loading:Remove()
 
