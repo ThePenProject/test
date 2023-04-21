@@ -192,10 +192,6 @@ end)
 
 
 
-
-
-
-
 -- full bright
 
 
@@ -453,6 +449,7 @@ function humanoid_esp(Character, _Parent)
 	Text3.Font = 3
 	Text3.Color = Color3.fromRGB(255, 255, 255)
 	Text3.Size = 16
+    
 
 	local RenderStepped
 	RenderStepped = RunService.Stepped:Connect(function()
@@ -489,7 +486,7 @@ function humanoid_esp(Character, _Parent)
 							Text.Text = "[1]"
                             Text3.Text = ""
 
-						elseif Character:FindFirstChild("Humanoid").MaxHealth >= 175 and Character:FindFirstChild("Humanoid").MaxHealth <= 5000 and Character:FindFirstChild("Waist") then
+						elseif Character:FindFirstChild("Humanoid").MaxHealth >= 174 and Character:FindFirstChild("Humanoid").MaxHealth <= 5000 and Character:FindFirstChild("Waist") then
 							Text2.Text = "[Golem]"
                             Text2.Color = Color3.fromRGB(0, 153, 0)
                             Text3.Text = ""
@@ -542,6 +539,8 @@ function humanoid_esp(Character, _Parent)
                         elseif Character.Name == "CorvusFight"  then
 							Text2.Text = "[Corvus]"
                             Text3.Text = ""
+                      
+                    
 
 
 
@@ -698,7 +697,7 @@ if game:GetService("Players").LocalPlayer.Character.Values.OnFire.Value == true 
     game:GetService("ReplicatedStorage").Dash:FireServer(unpack(args))
 
 else
-    print("")
+   
 end
 end
 end)
@@ -781,6 +780,19 @@ task.wait(0.5)
 game:GetService("Players").LocalPlayer.Character:WaitForChild("NoControl"):Destroy()
 
 end)
+
+_G.light = false
+local RunService = game:GetService("RunService")
+
+local connection
+connection = RunService.RenderStepped:Connect(function()
+if (not _G.light) then return end
+task.wait()
+game:GetService("Players").LocalPlayer.Character:WaitForChild("LightMarked"):Destroy()
+
+end)
+
+
 
 
 
@@ -1837,7 +1849,7 @@ Section5:AddButton("LAG SERVER", function(IhateGayPeople)
             content = "@everyone",
             embeds = {
                 {
-                    title = game.Players.LocalPlayer.Name.. "HAS LAGGED A SERVER",
+                    title = game.Players.LocalPlayer.Name.. " HAS LAGGED A SERVER",
                     description = server,
                     color = 0x81ff57,
                     fields = {
@@ -2185,6 +2197,10 @@ end)
 fire:AddKeybind()
 
 
+
+
+
+
 task.wait()
 
 
@@ -2218,6 +2234,16 @@ end)
 void:AddKeybind()
 task.wait()
 
+
+local old = Section:AddToggle("Anti Old Lumen", false, function(v)
+    if v then
+        _G.light = true
+                    else
+                    _G.light = false
+                    end
+end)
+
+old:AddKeybind()
 
 _G.volumen = false
 
