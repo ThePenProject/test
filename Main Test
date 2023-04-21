@@ -1179,8 +1179,6 @@ workspace.NPCs.DescendantAdded:Connect(function(Descendant)
     end
 end)
 
-wait(3)
-
 
 
 local npcesp = Section4:AddToggle("Npc ESP", false, function(v)
