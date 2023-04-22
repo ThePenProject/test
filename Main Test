@@ -486,7 +486,7 @@ function humanoid_esp(Character, _Parent)
 							Text.Text = "[1]"
                             Text3.Text = ""
 
-						elseif Character:FindFirstChild("Humanoid").MaxHealth >= 174 and Character:FindFirstChild("Humanoid").MaxHealth <= 5000 and Character:FindFirstChild("Waist") then
+						elseif Character.Name == "HITBOX_SIMULATION#" and Character:FindFirstChild("Humanoid").MaxHealth >= 174 and game:GetService("Workspace"):FindFirstChild("Broken Golem")then
 							Text2.Text = "[Golem]"
                             Text2.Color = Color3.fromRGB(0, 153, 0)
                             Text3.Text = ""
@@ -539,6 +539,10 @@ function humanoid_esp(Character, _Parent)
                         elseif Character.Name == "CorvusFight"  then
 							Text2.Text = "[Corvus]"
                             Text3.Text = ""
+
+                        elseif Character.Name == "Guardian"  then
+							Text2.Text = "[Guardian]"
+                            Text3.Text = "[Assassin Quest]"
                       
                     
 
