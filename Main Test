@@ -738,7 +738,24 @@ end)
 task.wait()
 
 
-    
+
+
+_G.gelu = false
+
+local connection
+connection = RunService.RenderStepped:Connect(function()
+if (not _G.gelu) then return end
+task.wait()
+if game:GetService("Players").LocalPlayer.Character then
+game:GetService("Players").LocalPlayer.Character:WaitForChild("GelidusCooldown"):Destroy()
+end
+end)
+
+
+
+task.wait()
+
+
 _G.block = false
     
 local connection
@@ -1798,6 +1815,36 @@ end)
 task.wait()
 
 
+
+Section5:AddButton("Who's In Dungeon?", function(IhateGayPeople)
+
+
+    local dung = false
+    for _, descendant in pairs(workspace.Live:GetDescendants()) do
+        if descendant.Name == "RunningDungeon" then
+            local dungplayer = descendant.Parent.Name
+            print(dungplayer)
+            dung = true
+    getgenv()['IrisAd'] = true
+    local Notification = loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisBetterNotifications.lua"))()
+    
+    Notification.Notify(dungplayer, dungplayer.." Is in dungeon.", "rbxassetid://4914902889" );
+    
+    
+        end
+    end
+    
+    if dung  == false then 
+        getgenv()['IrisAd'] = true
+    local Notification = loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisBetterNotifications.lua"))()
+    
+    Notification.Notify("No one!", "The dungeon is empty.", "rbxassetid://4914902889" );
+        end
+
+end)
+
+
+
 Section5:AddButton("Find Out Days", function(IhateGayPeople)
 
 
@@ -2235,7 +2282,7 @@ void:AddKeybind()
 task.wait()
 
 
-local old = Section:AddToggle("Anti Old Lumen", false, function(v)
+local old = Section:AddToggle("Anti Light Eruption", false, function(v)
     if v then
         _G.light = true
                     else
@@ -2342,6 +2389,18 @@ task.wait()
     end)
     
     confuse:AddKeybind()
+
+
+    local gelu = Section2:AddToggle("No gelu cd", false, function(v)
+        if v then
+            _G.gelu = true
+                        else
+                        _G.gelu = false
+                        end
+    end)
+    
+    gelu:AddKeybind()
+
 
     task.wait()
 
