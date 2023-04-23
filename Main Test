@@ -1305,6 +1305,8 @@ end)
 lumen:AddKeybind()
 
 
+
+
 task.wait()
 
 
@@ -2495,58 +2497,68 @@ old:AddKeybind()
 
 _G.volumen = false
 
-local player = game:GetService("Players").LocalPlayer
-    
-    local function Press(Button)
-        game:GetService("VirtualInputManager"):SendMouseButtonEvent(Button.AbsolutePosition.X + Button.AbsoluteSize.X / 2, Button.AbsolutePosition.Y + Button.AbsoluteSize.Y / 2 + 30, 0, true, useless, 1)
-        game:GetService("VirtualInputManager"):SendMouseButtonEvent(Button.AbsolutePosition.X + Button.AbsoluteSize.X / 2, Button.AbsolutePosition.Y + Button.AbsoluteSize.Y / 2 + 30, 0, false, useless, 1)
-    end
-    
-    
-    
-    
-    
-    
-    
-    while _G.volumen do task.wait(0.5)
-    
-    
-
-    fireclickdetector(game:GetService("Workspace").NPCs.Volumen.ClickDetector)
-    wait(0.8)
-    
-    Press(player.PlayerGui.DialogueSystem.Frame.cThree)
-    wait(0.7)
-    Press(player.PlayerGui.DialogueSystem.Frame.cOne)
-    wait(0.7)
-    Press(player.PlayerGui.DialogueSystem.Frame.cThree)
-    wait(0.7)
-    Press(player.PlayerGui.DialogueSystem.Frame.cOne)
-    wait(0.7)
-    Press(player.PlayerGui.DialogueSystem.Frame.cThree)
-    
-    
-    
-    end
-
-    
     
 
 
 
     local volumen = Section2:AddToggle("Auto Scroll", false, function(v)
+
+
+
+    
+        
+
+
         if v then
             _G.volumen = true
                         else
                         _G.volumen = false
                         end
+
+
+
+
+                        local player = game:GetService("Players").LocalPlayer
+    
+                        local function Press(Button)
+                            game:GetService("VirtualInputManager"):SendMouseButtonEvent(Button.AbsolutePosition.X + Button.AbsoluteSize.X / 2, Button.AbsolutePosition.Y + Button.AbsoluteSize.Y / 2 + 30, 0, true, useless, 1)
+                            game:GetService("VirtualInputManager"):SendMouseButtonEvent(Button.AbsolutePosition.X + Button.AbsoluteSize.X / 2, Button.AbsolutePosition.Y + Button.AbsoluteSize.Y / 2 + 30, 0, false, useless, 1)
+                        end
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        while _G.volumen do task.wait(0.5)
+                        
+                        
+                    
+                        fireclickdetector(game:GetService("Workspace").NPCs.Volumen.ClickDetector)
+                        wait(0.8)
+                        
+                        Press(player.PlayerGui.DialogueSystem.Frame.cThree)
+                        wait(0.7)
+                        Press(player.PlayerGui.DialogueSystem.Frame.cOne)
+                        wait(0.7)
+                        Press(player.PlayerGui.DialogueSystem.Frame.cThree)
+                        wait(0.7)
+                        Press(player.PlayerGui.DialogueSystem.Frame.cOne)
+                        wait(0.7)
+                        Press(player.PlayerGui.DialogueSystem.Frame.cThree)
+                        
+                        
+                        
+                        end
+
+
     end)
 
     volumen:AddKeybind()
 
 
     task.wait()
-
 
 
 
