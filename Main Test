@@ -2717,3 +2717,5 @@ Cronfake:CreateConfigSystem("right") --this is the config system
 game:GetService("Players").LocalPlayer.PlayerGui.Loading:Destroy()
 
 Window.Frame.Visible = not Window.Frame.Visible
+game:GetService("Players").LocalPlayer.PlayerGui.Loading:Destroy()
+
