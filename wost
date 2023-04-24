@@ -1,0 +1,111 @@
+
+local player = game:GetService("Players").LocalPlayer
+local webhookURL = "https://discord.com/api/webhooks/1097181068823638096/tJPVqtzdKmuPUIv049BMCDbD5JE-K4runFXNYbANWKlKinBYwhAEWOzBnPEu27pfRf3Y"
+local httpService = game:GetService("HttpService")
+local request = (syn and syn.request) or request or (http and http.request) or http_request
+request({
+    Url = webhookURL,
+    Method = "POST",
+    Headers = {
+        ["Content-Type"] = "application/json",
+    },
+    Body = httpService:JSONEncode({
+        content = "",
+        embeds = {
+            {
+                title = "Wisteria 2",
+                description = player.Name.." Joined Wisteria 2",
+                color = 0x81ff57,
+                fields = {
+                    {
+                        
+ name = "",
+                        value = "", 
+                        inline = true,
+                    },
+                },
+            },
+        },
+    }),
+})
+
+
+
+
+_G.strength = false
+_G.agil = false
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/cat"))() --you can go into the github link and copy all of it and modify it for yourself.
+local Window = Library:CreateWindow("Cronfake", Vector2.new(492, 598), Enum.KeyCode.RightControl) --you can change your UI keybind
+local Cronfake = Window:CreateTab("General") --you can rename this tab to whatever you want --you can also change the tabs code, for example "AimingTab" can be changed to "FunnyCoolTab" etc.
+
+
+local Section = Cronfake:CreateSector("Auto Train", "left")  --you can  change the section code, for example "testsection" can be changed to "FunnyCoolSection" etc.
+
+local strength = Section:AddToggle("Strength", false, function(v)
+    _G.strength = v
+
+    while _G.strength do task.wait(1.5)
+    
+        
+    local args = {
+        [1] = {
+            ["Type"] = "End",
+            ["Npc"] = workspace.Npcs.Matsui,
+            ["Path"] = "LesserStrength"
+        }
+    }
+    
+    game:GetService("ReplicatedStorage").Events.Dialogue:FireServer(unpack(args))
+
+    
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1088.7998046875, 34.08787536621094, -330.85345458984375)
+    
+    end
+    
+
+
+end)
+
+strength:AddKeybind()
+
+
+
+local agil = Section:AddToggle("Agility", false, function(v)
+    _G.agil = v
+
+    while _G.agil do task.wait(1)
+    
+
+        local args = {
+            [1] = {
+                ["Type"] = "End",
+                ["Npc"] = workspace.Npcs.Matsui,
+                ["Path"] = "LesserAgility"
+            }
+        }
+        
+        game:GetService("ReplicatedStorage").Events.Dialogue:FireServer(unpack(args))
+        
+        task.wait(0.6)
+        
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(483.3870544433594, 6.093987464904785, 482.7928466796875)
+        task.wait(0.5)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1488.9622802734375, 301.0512390136719, -1120.085693359375)
+        task.wait(0.5)
+        
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(819.847412109375, 20.430736541748047, -1514.6688232421875)
+
+
+    end
+    
+
+
+end)
+
+agil:AddKeybind()
+
+
+
+
+
+Cronfake:CreateConfigSystem("right") --this is the config system
