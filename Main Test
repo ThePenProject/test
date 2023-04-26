@@ -683,10 +683,7 @@ function humanoid_esp(Character, _Parent)
 							Text.Text = "[1]"
                             Text3.Text = ""
 
-						elseif Character:FindFirstChild("Humanoid").MaxHealth >= 174 and game:GetService("Workspace"):FindFirstChild("Broken Golem")then
-							Text2.Text = "[Golem]"
-                            Text2.Color = Color3.fromRGB(0, 153, 0)
-                            Text3.Text = ""
+
 
 						elseif Character.Name == "_DungeonClone" and Character.Humanoid.MaxHealth <= 125 then
 							Text2.Text = "[Crawler]"
@@ -859,22 +856,7 @@ task.wait()
 
 
 
-_G.fall = false
 
-local connection
-connection = RunService.RenderStepped:Connect(function()
-if (not _G.fall) then return end
-task.wait(3)
-game:GetService("ReplicatedStorage"):WaitForChild("FallDamage"):Remove()
-
-    
-
-end)
-
-
-
-
-task.wait()
 
 
 
@@ -928,7 +910,7 @@ _G.voidfire = false
 local connection
 connection = RunService.RenderStepped:Connect(function()
 if (not _G.voidfire) then return end
-task.wait(0.2)
+task.wait()
 
 game:GetService("Players").LocalPlayer.Character:WaitForChild("VoidFire"):Destroy()
 
@@ -994,7 +976,7 @@ local RunService = game:GetService("RunService")
 local connection
 connection = RunService.RenderStepped:Connect(function()
 if (not _G.tempus) then return end
-task.wait(0.5)
+task.wait(0.2)
 game:GetService("Players").LocalPlayer.Character:WaitForChild("NoControl"):Destroy()
 
 end)
@@ -1005,7 +987,6 @@ local RunService = game:GetService("RunService")
 local connection
 connection = RunService.RenderStepped:Connect(function()
 if (not _G.light) then return end
-task.wait()
 game:GetService("Players").LocalPlayer.Character:WaitForChild("LightMarked"):Destroy()
 
 end)
@@ -1043,7 +1024,16 @@ Window.Frame.Visible = not Window.Frame.Visible
 
 local Cronfake = Window:CreateTab("General") 
 
+local Risk = Window:CreateTab("RISKY")
+
+local tp = Risk:CreateSector("Teleport", "left") 
+
+local click = Risk:CreateSector("Click", "right") 
+
+
 local Settings = Window:CreateTab("Settings")
+
+
 
 local SettingSection = Settings:CreateSector("Customaztion", "left") 
 
@@ -1088,7 +1078,7 @@ end)
 
 SettingSection:AddButton("Cronfake Discord", function(IhateGayPeople)
 
-    setclipboard("https://discord.gg/s97bY5Cb4w")
+    setclipboard("https://discord.gg/cronfake")
     
     
     getgenv()['IrisAd'] = true
@@ -1097,6 +1087,8 @@ SettingSection:AddButton("Cronfake Discord", function(IhateGayPeople)
     Notification.Notify("Copied!", "Cronfake Discord copied to your clipboard", "rbxassetid://4914902889" ); -- the rbx is the image id
     
     end)
+
+
 
 local noban = banSection:AddLabel("Steps to not be banned: ", false, function(e)
     end)
@@ -2077,6 +2069,13 @@ end)
 
 task.wait()
 
+Section5:AddButton("Remove Fall Damage", function(IhateGayPeople)
+
+
+    game:GetService("ReplicatedStorage"):FindFirstChild("FallDamage"):Remove()
+
+
+end)
 
 
 
@@ -2222,7 +2221,196 @@ task.wait()
 
 
 
+repeat wait() until game:IsLoaded()
+_G.SkillsColldowns = {
+    Imber = {
+        m1 = 7.5,
+        m2 = 13.8
+    },
+    Gelu = {
+        m1 = 0.3
+    }
+}
 
+local Cd = Section2:AddToggle("Cooldown Viewer", false, function(toggle)
+    _G.CooldownViewer = toggle
+    function gettool()
+        for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+            if v:IsA("Tool") then
+                return v
+            end
+        end
+    end
+    
+    function returncooldowntool(toola, m)
+        if m == "m1" then
+            return toola.SpellCooldown.Value
+        elseif m == "m2" then
+            return toola.SnapCooldown.Value
+        end
+    end
+    
+    function fromtooltocd(toolname, m)
+        for i, v in pairs(_G.SkillsColldowns) do
+            if tostring(i) == tostring(toolname.Name) then
+                return v[m]
+            end
+        end
+    end
+    
+    function checksnap(tool)
+        if tool:FindFirstChild("Snap") ~= nil then
+            return true
+        end
+    end
+    
+    function detecthotbarorder(thename)
+        for i, v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.RobloxBackpack.Backpack.Hotbar:GetDescendants()) do
+            if v.Name == "ToolName" then
+                if v.Text == thename then
+                    return v.Parent
+                end
+            end
+        end
+    end
+    
+    function check_cd_bl()
+        for i, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+            if v:IsA("Folder") then
+                if v.Name == "BlockCooldown" then
+                    return true
+                end
+            end
+        end
+    end
+    
+    function either_both_or_that(thetool, typer)
+        if (tick() - returncooldowntool(thetool, typer)) >= tonumber(fromtooltocd(thetool, typer)) then --(tick() - returncooldowntool(_G.TheUsedTool, "m1")) >= tonumber(fromtooltocd(_G.TheUsedTool, "m1"))
+            print("Cooldown passed so it returned true")
+            return true
+        else
+            if math.floor((tick() - returncooldowntool(thetool, typer))) == math.floor(tonumber(fromtooltocd(thetool, typer))) then
+                print("it has same floor")
+                local rnnowtick = tick()
+                while check_cd_bl() ~= true do
+                    wait()
+                    if (tick() - rnnowtick) > 1.2 then
+                        print("passed 1.2")
+                        break
+                    end
+                    if check_cd_bl() == true then
+                        print("it has blockcd so true ;)")
+                        return true
+                    end
+                end
+            end
+        end
+    end
+    
+    local myScript = function()
+        spawn(function()
+            _G.CastedTime = tick()
+            _G.TheUsedTool = gettool()
+            if _G.TheUsedTool == nil then
+                return
+            end
+            if _G.TheUsedTool:FindFirstChild("Spell") ~= nil then
+                if checksnap(_G.TheUsedTool) == true then
+                    if _G.TheArgs[2] == false then
+                        _G.TheUsedTool.SpellCooldown:GetPropertyChangedSignal("Value"):Connect(function()
+                            if (tick() - _G.CastedTime) < 1.5 then
+                                local easingStyle = Enum.EasingStyle.Linear
+                                local cooldownFrame = detecthotbarorder(_G.TheUsedTool.Name).Cooldown
+                                cooldownFrame.Size = UDim2.new(0.5, 0, 0, 0)
+                                local targetSize = UDim2.new(cooldownFrame.Size.X.Scale, cooldownFrame.Size.X.Offset, 1,
+                                    cooldownFrame.Size.Y.Offset)
+                                local duration = fromtooltocd(_G.TheUsedTool, "m1")
+                                local tween = game:GetService("TweenService"):Create(cooldownFrame,
+                                    TweenInfo.new(duration, easingStyle), { Size = targetSize })
+                                tween:Play()
+                                tween.Completed:Connect(function()
+                                    if tonumber(cooldownFrame.Size.Y.Scale) == 1 then
+                                        cooldownFrame.Size = UDim2.new(0.5, 0, 0, 0)
+                                        print("turned to 0 the spell, check: " ..
+                                        tostring(tonumber(cooldownFrame.Size.Y.Scale) == 0))
+                                    end
+                                end)
+                            end
+                        end)
+                    end
+                    if _G.TheArgs[2] == true then
+                        _G.TheUsedTool.SnapCooldown:GetPropertyChangedSignal("Value"):Connect(function()
+                            if (tick() - _G.CastedTime) < 1.5 then
+                                local easingStyle = Enum.EasingStyle.Linear
+                                local cooldownFrame = detecthotbarorder(_G.TheUsedTool.Name).CooldownTwo
+                                cooldownFrame.Size = UDim2.new(0.5, 0, 0, 0)
+                                cooldownFrame.Position = UDim2.new(0.5, 0, 0, 0)
+                                local targetSize = UDim2.new(cooldownFrame.Size.X.Scale, cooldownFrame.Size.X.Offset, 1,
+                                    cooldownFrame.Size.Y.Offset)
+                                local duration = fromtooltocd(_G.TheUsedTool, "m2")
+                                local tween = game:GetService("TweenService"):Create(cooldownFrame,
+                                    TweenInfo.new(duration, easingStyle), { Size = targetSize })
+                                tween:Play()
+                                tween.Completed:Connect(function()
+                                    if tonumber(cooldownFrame.Size.Y.Scale) == 1 then
+                                        cooldownFrame.Size = UDim2.new(0.5, 0, 0, 0)
+                                        print("turned to 0 snap, check: " ..
+                                        tostring(tonumber(cooldownFrame.Size.Y.Scale) == 0))
+                                        _G.canusem2 = true
+                                    end
+                                end)
+                            end
+                        end)
+                    end
+                end
+                if checksnap(_G.TheUsedTool) ~= true then
+                    if _G.TheArgs[2] == false then
+                        _G.TheUsedTool.SpellCooldown:GetPropertyChangedSignal("Value"):Connect(function()
+                            local cooldownFrame = detecthotbarorder(_G.TheUsedTool.Name).Cooldown
+                            cooldownFrame.Size = UDim2.new(1, 0, 0, 0)
+                            local targetSize = UDim2.new(cooldownFrame.Size.X.Scale, cooldownFrame.Size.X.Offset, 1,
+                                cooldownFrame.Size.Y.Offset)
+                            local duration = fromtooltocd(_G.TheUsedTool, "m1")
+                            local easingStyle = Enum.EasingStyle.Linear
+                            local tween = game:GetService("TweenService"):Create(cooldownFrame,
+                                TweenInfo.new(duration, easingStyle),
+                                { Size = targetSize })
+                            tween:Play()
+                            tween.Completed:Connect(function()
+                                if tonumber(cooldownFrame.Size.Y.Scale) == 1 then
+                                    cooldownFrame.Size = UDim2.new(1, 0, 0, 0)
+                                    _G.canusev2 = true
+                                end
+                            end)
+                        end)
+                    end
+                end
+            end
+        end)
+    end
+    
+    function avoidequipinte(args)
+        for i, v in pairs(args) do
+            if v == "BasePart" or v == "Decal" or v == "BodyGyro" or v == "Tool" then
+                return false
+            end
+        end
+    end
+    
+    local mt = getrawmetatable(game)
+    local oldnamecall = mt.__namecall
+    setreadonly(mt, false)
+    
+    mt.__namecall = newcclosure(function(self, ...)
+        local args = { ... }
+        if self.Name == "Action" and avoidequipinte(args) ~= false and _G.CooldownViewer == true then
+            _G.TheArgs = args
+            myScript()
+        end
+        return oldnamecall(self, ...)
+    end)
+    setreadonly(mt, true)    
+end)
 
 
 
@@ -2245,9 +2433,236 @@ end)
 
 
 
+--[[
 
+    Made by ; trq#0007
 
-task.wait()
+--]]
+
+local players = game:GetService("Players");
+local LocalPlayer = players.LocalPlayer;
+local TweenService = game:GetService("TweenService");
+local MobsFolder = game:GetService("Workspace").NPCs;
+function tp(value)
+    local mylocation_position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+    local npcloc = game:GetService("Workspace").NPCs[value]
+    local cf_pos = npcloc.HumanoidRootPart.Position
+    LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(0,-120,0))
+    npcloc.ClickDetector.MaxActivationDistance = math.huge
+    local tween = TweenService:Create(LocalPlayer.Character.HumanoidRootPart, TweenInfo.new((LocalPlayer.Character.HumanoidRootPart.Position - (cf_pos - Vector3.new(0, 40, 0))).Magnitude/100, Enum.EasingStyle.Linear), {CFrame = CFrame.new(cf_pos - Vector3.new(0, 40, 0))})
+    tween:Play()
+    tween.Completed:Connect(function()
+        fireclickdetector(npcloc.ClickDetector)
+        LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(0,-120,0))
+        local tweenback = TweenService:Create(LocalPlayer.Character.HumanoidRootPart, TweenInfo.new((LocalPlayer.Character.HumanoidRootPart.Position - mylocation_position).Magnitude/100, Enum.EasingStyle.Linear), {CFrame = CFrame.new(mylocation_position - Vector3.new(0,70,0))})
+        tweenback:Play()
+        tweenback.Completed:Connect(function()
+            LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(0,70,0))
+            npcloc.ClickDetector.MaxActivationDistance = 10
+        end)
+    end)
+end
+--// Bypass
+do
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local ScriptContext     = game:GetService("ScriptContext")
+    local LogService        = game:GetService("LogService")
+    local RunService        = game:GetService("RunService")
+    local Players           = game:GetService("Players")
+    
+    local FindFirstChild    = game.FindFirstChild
+    local WaitForChild      = game.WaitForChild
+    local LocalPlayer       = Players.LocalPlayer
+    
+    local blacklisted_remote_names = {
+        Punch = true,
+        PunchTwo = true
+    }
+    
+    local function disableConnections(signal)
+        for index, connection in next, getconnections(signal) do
+            if not connection.Function then continue end
+            if is_synapse_function(connection.Function) then continue end
+
+            printconsole("found client " .. string.lower(tostring(signal)))
+            connection:Disable()
+        end
+    end
+
+    local function onCharacterAdded(character)
+        if not character then
+            return
+        end
+
+        WaitForChild(character, "YeaURMOMOMMM")
+        printconsole("client character loaded")
+
+        for index, connection in next, getconnections(RunService.Heartbeat) do
+            if not connection.Function then continue end
+            if is_synapse_function(connection.Function) then continue end
+
+            for index, upvalue in next, getupvalues(connection.Function) do
+                if type(upvalue) ~= "function" then continue end
+                if not islclosure(upvalue) then continue end
+                if not table.find(getconstants(upvalue), "Punch") then continue end
+
+                printconsole("found client remote function")
+
+                hookfunction(upvalue, function(name, ...)
+                    if blacklisted_remote_names[name] then
+                        return
+                    end
+
+                    if FindFirstChild(ReplicatedStorage, name) then
+                        ReplicatedStorage[name]:FireServer(...)
+                    end
+                end)
+            end
+        end
+
+        disableConnections(ScriptContext.Error)
+        disableConnections(LogService.MessageOut)
+        disableConnections(character.Humanoid.Jumping)
+        disableConnections(character.HumanoidRootPart:GetPropertyChangedSignal("Velocity"))
+    end
+
+    task.spawn(onCharacterAdded, LocalPlayer.Character)
+    LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
+
+    local function handle_callback(callback, method, object, ...)
+        if not checkcaller() and typeof(object) == "Instance" then
+            method = string.lower(method)
+
+            if (method == "fireserver" or method == "invokeserver") then
+                if blacklisted_remote_names[object.Name] then
+                    return
+                end
+                if LocalPlayer.Character and object == FindFirstChild(LocalPlayer.Character, "Communicate") and (...) == "sendping" then
+                    return
+                end
+            end
+            if method == "breakjoints" and object == LocalPlayer.Character then
+                return
+            end
+        end
+        return callback(object, ...)
+    end
+
+    local old
+    old = hookfunction(game.Destroy, newcclosure(function(object, ...)
+        if typeof(object) == "Instance" and tostring(getcallingscript()) == "_CharacterClient" then
+            if not string.find(object.Name, "dodgevelocity") then
+                return function(...) warn("destroy", ...) end
+            end
+        end
+        return old(object, ...)
+    end))
+
+    local __namecall
+    __namecall = hookmetamethod(game, "__namecall", newcclosure(function(...)
+        return handle_callback(__namecall, getnamecallmethod(), ...)
+    end))
+
+    local old
+    old = hookfunction(Instance.new("RemoteFunction").InvokeServer, newcclosure(function(...)
+        return handle_callback(old, "InvokeServer", ...)
+    end))
+
+    local old
+    old = hookfunction(Instance.new("RemoteEvent").FireServer, newcclosure(function(...)
+        return handle_callback(old, "FireServer", ...)
+    end))
+end
+
+--// Npcs
+local NpcData = {}
+local Useless = {
+    "Eagle",
+    "Facade",
+    "April",
+    "Sang",
+    "Statue",
+    "Charles",
+    "Richard",
+    "Landrick",
+    "Tristan",
+    "Wesley",
+    "Hutch",
+    "Lull",
+    "Watson",
+    "Austin",
+    "Atmere",
+    "Antonio",
+    "Anthony",
+    "Blake",
+    "Hayes",
+    "Hawk",
+    "Nathan",
+    "Faust",
+    "Gunther",
+    "Rowge",
+    "Climber Outfit",
+    "Greatsword Armor",
+    "Fist Dummy",
+    "Brawler Armor",
+    "Amon Armor",
+    "Assassin Armor",
+    "Black Cape",
+    "Light Cape",
+    "Obsidian Chestpiece",
+    "Phoenix Armor",
+    "Piandao Armor",
+    "Pierce Armor",
+    "Guardian",
+    "Scarlet Cloak",
+    "Steel Greatplate",
+    "Thief Outfit",
+    "Void Armor",
+    "Baam",
+    "Dark Cape",
+    "Epoch",
+    "Ieng",
+    "QuiesBrawla",
+    "Ragnar",
+    "Wade",
+    "VerityBrawla",
+    "Sean",
+    "Leo",
+    "Lance",
+}
+do
+    local MobsFolder = game:GetService("Workspace").NPCs;
+    for index, mob in next, MobsFolder:GetChildren() do
+        if not mob:FindFirstChild("HumanoidRootPart") then continue end;
+        if not mob:FindFirstChild("Humanoid") then continue end;
+        if mob.Humanoid.Health <= 0 then continue end;
+        if table.find(Useless, mob.Name) then continue end
+
+        NpcData[#NpcData + 1] = {
+            Name = mob.Name,
+            CFrame = mob.HumanoidRootPart.CFrame
+        }
+
+        table.sort(NpcData, function(tableA, tableB)
+            return tableA.Name < tableB.Name
+        end)
+
+    end
+end
+
+local list = {}
+local dict = {}
+
+for i, v in next, NpcData do
+    list[#list + 1] = v.Name
+    dict[v.Name] = v
+end
+
+local NPCDropDown = click:AddDropdown("NPCs", list, "npcTp", false, function(npc)
+    if dict[npc] then
+        tp(dict[npc].Name)
+    end
+end)
 
 
 
@@ -2265,15 +2680,18 @@ local fly = Section:AddToggle("Fly", false, function(v)
 
                     else
                         for i,Descendant in pairs(workspace:GetDescendants()) do
-                            if Descendant:IsA("Part") then
-                                              if Descendant:FindFirstChild("Weld") then
-                                                  if Descendant:FindFirstChild("BodyGyro") then
-                                                      Descendant:Destroy()
-                                end
-                            end
-                        end
-                        end
-                        
+                            if Descendant:FindFirstChild("Weld") then
+                                if Descendant:FindFirstChild("BodyGyro") then
+                                 
+                                    Descendant:Destroy()
+              end
+          end
+      end
+      
+      
+      
+
+
                         
       
                     end
@@ -2421,15 +2839,6 @@ fling:AddKeybind()
 task.wait()
 
 
-local fall = Section2:AddToggle("No Fall Damage", false, function(v)
-    if v then
-        _G.fall = true
-                    else
-                    _G.fall = false
-                    end
-end)
-
-fall:AddKeybind()
 
 
 
