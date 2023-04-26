@@ -2225,7 +2225,7 @@ repeat wait() until game:IsLoaded()
 _G.SkillsColldowns = {
     Imber = {
         m1 = 7.5,
-        m2 = 13.8
+        m2 = 13
     },
     Gelu = {
         m1 = 0.3
