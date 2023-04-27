@@ -2079,6 +2079,21 @@ end)
 
 
 
+Section5:AddButton("Rejoin Server", function(IhateGayPeople)
+    getgenv()['IrisAd'] = true
+    local Notification = loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisBetterNotifications.lua"))()
+    
+    Notification.Notify("Rejoining...", "", "rbxassetid://4914902889" ); -- the rbx is the image id
+
+    game:GetService("TeleportService"):Teleport(game.PlaceId)
+
+
+
+end)
+
+
+
+
 
 
 Section5:AddButton("LAG SERVER", function(IhateGayPeople)
@@ -2228,11 +2243,89 @@ _G.SkillsColldowns = {
         m2 = 13
     },
     Gelu = {
-        m1 = 0.3
+        m1 = 0.3,
+        m2 = 16
     },
     Flamma = {
-        m1 = 0.3
+        m1 = 0.3,
+        m2 = 19
+    },
+    Terra = {
+        m1 = 2.7
+        
+    },
+    Sagitta = {
+        m1 = 4
+        
+    },
+
+    Eurus = {
+        m1 = 21,
+        m2 = 18
+        
+    },
+
+    Fucus = {
+        m1 = 22.3
+        
+    },
+    Sanetur = {
+        m1 = 10
+        
+    },
+    Mortem = {
+        m1 = 4.9
+        
+    },
+
+    Obcillo = {
+        m1 = 17.5
+        
+    },
+
+    Divello = {
+        m1 = 19
+        
+    },
+
+    Perdere = {
+        m1 = 15
+        
+    },
+
+
+
+    Inflammetur = {
+        m1 = 30
+        
+    },
+
+    Tempus = {
+        m1 = 900,
+        m2 = 45
+        
+    },
+
+    Casus = {
+        m1 = 15.3,
+        m2 = 15.3
+        
+    },
+
+    Lanuae = {
+        m1 = 15.4
+        
+    },
+    Trabem = {
+        m1 = 22
+        
     }
+
+
+
+
+
+
 
 }
 
