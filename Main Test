@@ -1017,8 +1017,7 @@ for _, descendant in pairs(workspace:GetDescendants()) do
 
 -- start
 loadstring(game:HttpGet('https://raw.githubusercontent.com/ThePenProject/test/main/fing'))()
-local cord = loadstring(game:HttpGet('https://raw.githubusercontent.com/dizyhvh/rbx_scripts/main/libraries/coordmaster.lua'))()
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/cat"))() --you can go into the github link and copy all of it and modify it for yourself.
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/lok"))() --you can go into the github link and copy all of it and modify it for yourself.
 local Window = Library:CreateWindow("Cronfake", Vector2.new(492, 598), Enum.KeyCode.RightControl) 
 Window.Frame.Visible = not Window.Frame.Visible
 
@@ -2077,16 +2076,17 @@ Section5:AddButton("Remove Fall Damage", function(IhateGayPeople)
 
 end)
 
+jobid = game.JobId
 
 
 Section5:AddButton("Rejoin Server", function(IhateGayPeople)
     getgenv()['IrisAd'] = true
     local Notification = loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisBetterNotifications.lua"))()
     
-    Notification.Notify("Rejoining...", "", "rbxassetid://4914902889" ); -- the rbx is the image id
+    Notification.Notify("Rejoining...", "Rejoining the game.", "rbxassetid://4914902889" ); -- the rbx is the image id
 
-    game:GetService("TeleportService"):Teleport(game.PlaceId)
 
+    game:GetService('TeleportService'):TeleportToPlaceInstance(7162704734, jobid)
 
 
 end)
