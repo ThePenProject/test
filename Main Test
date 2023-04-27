@@ -2229,7 +2229,11 @@ _G.SkillsColldowns = {
     },
     Gelu = {
         m1 = 0.3
+    },
+    Flamma = {
+        m1 = 0.3
     }
+
 }
 
 local Cd = Section2:AddToggle("Cooldown Viewer", false, function(toggle)
@@ -2433,11 +2437,7 @@ end)
 
 
 
---[[
 
-    Made by ; trq#0007
-
---]]
 
 local players = game:GetService("Players");
 local LocalPlayer = players.LocalPlayer;
@@ -2462,6 +2462,7 @@ function tp(value)
         end)
     end)
 end
+
 --// Bypass
 do
     local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -2613,7 +2614,6 @@ local Useless = {
     "Phoenix Armor",
     "Piandao Armor",
     "Pierce Armor",
-    "Guardian",
     "Scarlet Cloak",
     "Steel Greatplate",
     "Thief Outfit",
@@ -2658,14 +2658,107 @@ for i, v in next, NpcData do
     dict[v.Name] = v
 end
 
-local NPCDropDown = click:AddDropdown("NPCs", list, "npcTp", false, function(npc)
+local NPCDropDown = click:AddDropdown("General", list, "npcTp", false, function(npc)
     if dict[npc] then
         tp(dict[npc].Name)
     end
 end)
 
+local NPCDropDown2 = click:AddDropdown("Sigil Questline", {"Alana","Rubru","Potio","Anna","Peasant","Vectis"}, "npcTp", false, function(npc)
+    function npccheck(thenpc)
+        local npcfolder = game:GetService("Workspace").NPCs
+        if npcfolder:FindFirstChild(npc) == nil then
+            return false
+        end
+        if npcfolder[npc]:FindFirstChild("HumanoidRootPart") == nil then
+            return false
+        end
+        if npcfolder[npc]:FindFirstChild("Humanoid") == nil then
+            return false
+        end
+        if npcfolder[npc].Humanoid.Health <= 0 then
+            return false
+        end
+        return true
+    end
+    if npccheck(npc) == true then
+        tp(npc)
+    end
+end)
+
+local NPCDropDown3 = click:AddDropdown("Malice Trainers", {"Suco","Gladio","Assassin","Grandis","Hama","Prae","One"}, "npcTp", false, function(npc)
+    function npccheck(thenpc)
+        local npcfolder = game:GetService("Workspace").NPCs
+        if npcfolder:FindFirstChild(npc) == nil then
+            return false
+        end
+        if npcfolder[npc]:FindFirstChild("HumanoidRootPart") == nil then
+            return false
+        end
+        if npcfolder[npc]:FindFirstChild("Humanoid") == nil then
+            return false
+        end
+        if npcfolder[npc].Humanoid.Health <= 0 then
+            return false
+        end
+        return true
+    end
+    if npccheck(npc) == true then
+        tp(npc)
+    end
+end)
+
+local NPCDropDown3 = click:AddDropdown("Virtue Trainers", {"Pi","Solis","Clara","Arbor","Shazam"}, "npcTp", false, function(npc)
+    function npccheck(thenpc)
+        local npcfolder = game:GetService("Workspace").NPCs
+        if npcfolder:FindFirstChild(npc) == nil then
+            return false
+        end
+        if npcfolder[npc]:FindFirstChild("HumanoidRootPart") == nil then
+            return false
+        end
+        if npcfolder[npc]:FindFirstChild("Humanoid") == nil then
+            return false
+        end
+        if npcfolder[npc].Humanoid.Health <= 0 then
+            return false
+        end
+        return true
+    end
+    if npccheck(npc) == true then
+        tp(npc)
+    end
+end)
+
+local NPCDropDown4 = click:AddDropdown("Miscellaneous Trainers", {"Divinos","Arthur","Kieran","Hoss","Surge"}, "npcTp", false, function(npc)
+    function npccheck(thenpc)
+        local npcfolder = game:GetService("Workspace").NPCs
+        if npcfolder:FindFirstChild(npc) == nil then
+            return false
+        end
+        if npcfolder[npc]:FindFirstChild("HumanoidRootPart") == nil then
+            return false
+        end
+        if npcfolder[npc]:FindFirstChild("Humanoid") == nil then
+            return false
+        end
+        if npcfolder[npc].Humanoid.Health <= 0 then
+            return false
+        end
+        return true
+    end
+    if npccheck(npc) == true then
+        tp(npc)
+    end
+end)
 
 
+
+
+
+
+click:AddLabel("Use noclip to avoid glitch", false, function(e)
+end)
 
 _G.Speed = 1
 
@@ -2786,19 +2879,15 @@ end)
 local LP = game:GetService("Players").LocalPlayer
 
 
-
-
-
-
 local noclip =Section:AddToggle("Noclip", false, function(toggleValue)
-        _toggleOn = toggleValue -- update toggle value
-        if toggleValue then
-            attatch() -- activate noclip script
-        else
-            game:GetService('RunService'):UnbindFromRenderStep('On')
-            game:GetService('RunService'):UnbindFromRenderStep('Off')
-            end
-    end)
+    _toggleOn = toggleValue -- update toggle value
+    if toggleValue then
+        attatch() -- activate noclip script
+    else
+        game:GetService('RunService'):UnbindFromRenderStep('On')
+        game:GetService('RunService'):UnbindFromRenderStep('Off')
+        end
+end)
 
     noclip:AddKeybind()
 
