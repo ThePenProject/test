@@ -1,15 +1,21 @@
+dungeon = true
+cronfake = false
+corvus = false
 
 
 
+if cronfake == true then
 
-
+task.wait()
 if syn and "Synapse X" then
     
   if not game:IsLoaded() then game.Loaded:Wait() end 
   
   
   if game.PlaceId == 7162704734 then -- fighting game main game
-  loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/Main%20Test"))()
+
+      loadstring(game:HttpGet('https://raw.githubusercontent.com/ThePenProject/test/main/Main%20Test'))()
+      
   
   
   
@@ -32,24 +38,22 @@ if syn and "Synapse X" then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/Punch!"))()
   
      
-     
+  elseif game.PlaceId == 13190091082 then -- Taish, wisteria 2
      
     
-     
-     
-     
-     
-     
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/ThePenProject/test/main/wost'))()
+
      end
   
-  
+     task.wait()
+
       elseif  KRNL_LOADED and "Krnl" then 
       
   if not game:IsLoaded() then game.Loaded:Wait() end 
   
   
   if game.PlaceId == 7162704734 then -- fighting game main game
-  loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/knal%20main"))()
+  -- loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/knal%20main"))()
   print("no")
   
   
@@ -82,11 +86,30 @@ if syn and "Synapse X" then
      
      end
       
-      
+     task.wait()
+
         
       end
-      
+    elseif dungeon == true then 
+      if syn and "Synapse X" then
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/dangam"))()
+
+
+    end
+    task.wait()
+
+  elseif  KRNL_LOADED and "Krnl" then 
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/dangam2"))()
+
+  end
   
-  
-  
+  task.wait()
+
+
+  if corvus == true then 
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/cov"))()
+
+ 
+
+  end
   
