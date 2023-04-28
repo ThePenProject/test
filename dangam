@@ -45,7 +45,7 @@ Title.BackgroundTransparency = 1
 Title.Position = UDim2.new(0.161527574, 0, 0.171569318, 0)
 Title.Size = UDim2.new(0.632528603, 0, 0.232815996, 0)
 Title.Font = Enum.Font.FredokaOne
-Title.Text = "Cronfake Hub"
+Title.Text = "Cronfake Hub | Dungeon"
 Title.TextColor3 = Color3.new(1, 1, 1)
 Title.TextScaled = true
 Title.TextSize = 14
@@ -906,7 +906,7 @@ for _, descendant in pairs(workspace:GetDescendants()) do
 -- start
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/lok"))() --you can go into the github link and copy all of it and modify it for yourself.
-local Window = Library:CreateWindow("Cronfake | Dungeon", Vector2.new(492, 598), Enum.KeyCode.RightControl) 
+local Window = Library:CreateWindow("Cronfake", Vector2.new(492, 598), Enum.KeyCode.RightControl) 
 Window.Frame.Visible = not Window.Frame.Visible
 
 local Cronfake = Window:CreateTab("General") 
