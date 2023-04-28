@@ -1615,6 +1615,40 @@ Notification.Notify(Weather, "The weather is "..Weather..".", "rbxassetid://4914
 
 end)
 
+
+
+
+
+Section5:AddButton("Who's In Dungeon?", function(IhateGayPeople)
+
+
+    local dung = false
+    for _, descendant in pairs(workspace.Live:GetDescendants()) do
+        if descendant.Name == "RunningDungeon" then
+            local dungplayer = descendant.Parent.Name
+            print(dungplayer)
+            dung = true
+    getgenv()['IrisAd'] = true
+    local Notification = loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisBetterNotifications.lua"))()
+    
+    Notification.Notify(dungplayer, dungplayer.." Is in dungeon.", "rbxassetid://4914902889" );
+    
+    
+        end
+    end
+    
+    if dung  == false then 
+        getgenv()['IrisAd'] = true
+    local Notification = loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisBetterNotifications.lua"))()
+    
+    Notification.Notify("No one!", "The dungeon is empty.", "rbxassetid://4914902889" );
+        end
+
+end)
+
+
+
+
 task.wait()
 
 Section5:AddButton("LAG SERVER", function(IhateGayPeople)
