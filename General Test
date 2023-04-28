@@ -1,8 +1,3 @@
-dungeon = true
-cronfake = false
-corvus = false
-
-
 
 if cronfake == true then
 
@@ -53,7 +48,7 @@ if syn and "Synapse X" then
   
   
   if game.PlaceId == 7162704734 then -- fighting game main game
-  -- loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/knal%20main"))()
+  --loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/knal%20main"))()
   print("no")
   
   
@@ -94,16 +89,14 @@ if syn and "Synapse X" then
       if syn and "Synapse X" then
       loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/dangam"))()
 
-
+    elseif  KRNL_LOADED and "Krnl" then 
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/dangam2"))()
     end
     task.wait()
 
-  elseif  KRNL_LOADED and "Krnl" then 
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/dangam2"))()
-
+  
   end
   
-  task.wait()
 
 
   if corvus == true then 
