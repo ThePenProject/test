@@ -1,3 +1,11 @@
+dungeon = false
+cronfake = false
+corvus = false
+
+
+
+
+
 
 if cronfake == true then
 
