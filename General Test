@@ -1,8 +1,4 @@
 
-
-
-
-
 if cronfake == true then
 
 task.wait()
@@ -52,7 +48,7 @@ if syn and "Synapse X" then
   
   
   if game.PlaceId == 7162704734 then -- fighting game main game
-  --loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/knal%20main"))()
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/knal%20main"))()
   print("no")
   
   
@@ -107,6 +103,16 @@ if syn and "Synapse X" then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/cov"))()
 
  
+  else 
+
+      if syn and "Synapse X" then
+
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/ThePenProject/test/main/Main%20Test'))()
+
+     elseif  KRNL_LOADED and "Krnl" then 
+
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/ThePenProject/test/main/knal%20main"))()
 
   end
-  
+
+end
