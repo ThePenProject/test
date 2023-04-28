@@ -946,6 +946,9 @@ local Section5 = Cronfake:CreateSector("Fun stuff", "left")
 
 
 
+
+
+
 SettingSection:AddButton("Cronfake YouTube", function(IhateGayPeople)
 
 setclipboard("https://www.youtube.com/channel/UCWEPq32J0IqDCls8kbnjB3g")
@@ -2107,6 +2110,281 @@ task.wait()
 
 
 
+
+    local players = game:GetService("Players");
+    local LocalPlayer = players.LocalPlayer;
+    local TweenService = game:GetService("TweenService");
+    local MobsFolder = game:GetService("Workspace").NPCs;
+    
+    --// Functions
+    function tp(value)
+        local cf = value
+        LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(0,-120,0))
+        local tween = TweenService:Create(LocalPlayer.Character.HumanoidRootPart, TweenInfo.new((LocalPlayer.Character.HumanoidRootPart.Position - cf.Position).Magnitude/100, Enum.EasingStyle.Linear), {CFrame = cf})
+        tween:Play()
+    end
+    
+    --// Bypass
+    do
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        local ScriptContext     = game:GetService("ScriptContext")
+        local LogService        = game:GetService("LogService")
+        local RunService        = game:GetService("RunService")
+        local Players           = game:GetService("Players")
+        
+        local FindFirstChild    = game.FindFirstChild
+        local WaitForChild      = game.WaitForChild
+        local LocalPlayer       = Players.LocalPlayer
+        
+        local blacklisted_remote_names = {
+            Punch = true,
+            PunchTwo = true
+        }
+        
+        local function disableConnections(signal)
+            for index, connection in next, getconnections(signal) do
+                if not connection.Function then continue end
+                if is_synapse_function(connection.Function) then continue end
+    
+                printconsole("found client " .. string.lower(tostring(signal)))
+                connection:Disable()
+            end
+        end
+    
+        local function onCharacterAdded(character)
+            if not character then
+                return
+            end
+    
+            WaitForChild(character, "YeaURMOMOMMM")
+            printconsole("client character loaded")
+    
+            for index, connection in next, getconnections(RunService.Heartbeat) do
+                if not connection.Function then continue end
+                if is_synapse_function(connection.Function) then continue end
+    
+                for index, upvalue in next, getupvalues(connection.Function) do
+                    if type(upvalue) ~= "function" then continue end
+                    if not islclosure(upvalue) then continue end
+                    if not table.find(getconstants(upvalue), "Punch") then continue end
+    
+                    printconsole("found client remote function")
+    
+                    hookfunction(upvalue, function(name, ...)
+                        if blacklisted_remote_names[name] then
+                            return
+                        end
+    
+                        if FindFirstChild(ReplicatedStorage, name) then
+                            ReplicatedStorage[name]:FireServer(...)
+                        end
+                    end)
+                end
+            end
+    
+            disableConnections(ScriptContext.Error)
+            disableConnections(LogService.MessageOut)
+            disableConnections(character.Humanoid.Jumping)
+            disableConnections(character.HumanoidRootPart:GetPropertyChangedSignal("Velocity"))
+        end
+    
+        task.spawn(onCharacterAdded, LocalPlayer.Character)
+        LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
+    
+        local function handle_callback(callback, method, object, ...)
+            if not checkcaller() and typeof(object) == "Instance" then
+                method = string.lower(method)
+    
+                if (method == "fireserver" or method == "invokeserver") then
+                    if blacklisted_remote_names[object.Name] then
+                        return
+                    end
+                    if LocalPlayer.Character and object == FindFirstChild(LocalPlayer.Character, "Communicate") and (...) == "sendping" then
+                        return
+                    end
+                end
+                if method == "breakjoints" and object == LocalPlayer.Character then
+                    return
+                end
+            end
+            return callback(object, ...)
+        end
+    
+        local old
+        old = hookfunction(game.Destroy, newcclosure(function(object, ...)
+            if typeof(object) == "Instance" and tostring(getcallingscript()) == "_CharacterClient" then
+                if not string.find(object.Name, "dodgevelocity") then
+                    return function(...) warn("destroy", ...) end
+                end
+            end
+            return old(object, ...)
+        end))
+    
+        local __namecall
+        __namecall = hookmetamethod(game, "__namecall", newcclosure(function(...)
+            return handle_callback(__namecall, getnamecallmethod(), ...)
+        end))
+    
+        local old
+        old = hookfunction(Instance.new("RemoteFunction").InvokeServer, newcclosure(function(...)
+            return handle_callback(old, "InvokeServer", ...)
+        end))
+    
+        local old
+        old = hookfunction(Instance.new("RemoteEvent").FireServer, newcclosure(function(...)
+            return handle_callback(old, "FireServer", ...)
+        end))
+    end
+    
+    --// Npcs
+    local NpcData = {}
+    local Useless = {
+        "Eagle",
+        "Facade",
+        "April",
+        "Sang",
+        "Statue",
+        "Charles",
+        "Richard",
+        "Landrick",
+        "Tristan",
+        "Wesley",
+        "Hutch",
+        "Lull",
+        "Watson",
+        "Austin",
+        "Atmere",
+        "Antonio",
+        "Anthony",
+        "Blake",
+        "Hayes",
+        "Hawk",
+        "Nathan",
+        "Faust",
+        "Gunther",
+        "Rowge",
+        "Climber Outfit",
+        "Greatsword Armor",
+        "Fist Dummy",
+        "Brawler Armor",
+        "Amon Armor",
+        "Assassin Armor",
+        "Black Cape",
+        "Light Cape",
+        "Obsidian Chestpiece",
+        "Phoenix Armor",
+        "Piandao Armor",
+        "Pierce Armor",
+        "Guardian",
+        "Scarlet Cloak",
+        "Steel Greatplate",
+        "Thief Outfit",
+        "Void Armor",
+        "Alana",
+        "Alatar",
+        "Anna",
+        "Arbor",
+        "Arhur",
+        "Assassin",
+        "Baam",
+        "Bar",
+        "Bullseye",
+        "Captio",
+        "Clara",
+        "Clover",
+        "Cronigod",
+        "Distal",
+        "Divinos",
+        "End",
+        "Epoch",
+        "Ex",
+        "Fang",
+        "Ferrum",
+        "Frog",
+        "Furvu",
+        "Gladio",
+        "Grandis",
+        "Hama",
+        "Hit",
+        "Hoss",
+        "Hound",
+        "Ieng",
+        "John James",
+        "Kieran",
+        "Kirbles",
+        "Lance",
+        "Latar",
+        "Leo",
+        "Mark",
+        "Merchant",
+        "OculusBrawla",
+        "One",
+        "Ozymandias",
+        "Peasant",
+        "Pi",
+        "Potio",
+        "Prae",
+        "QuiesBrawla",
+        "Romulus",
+        "Rubru",
+        "Sean",
+        "Shadow",
+        "Solis",
+        "Suco",
+        "Suvillian",
+        "Surge",
+        "Tale",
+        "Three",
+        "Two",
+        "Vectis",
+        "VerityBrawla",
+        "Volumen",
+        "Wade",
+        "Xavier",
+        "Arthur",
+        "Sullivan",
+        "Michael",
+        "Ragnar",
+        "Corvus",
+        "Ambrose",
+        "Dark Cape",
+        "Elliot",
+        "Pearl Cape"
+    }
+    do
+        local MobsFolder = game:GetService("Workspace").NPCs;
+        for index, mob in next, MobsFolder:GetChildren() do
+            if not mob:FindFirstChild("HumanoidRootPart") then continue end;
+            if not mob:FindFirstChild("Humanoid") then continue end;
+            if mob.Humanoid.Health <= 0 then continue end;
+            if table.find(Useless, mob.Name) then continue end
+    
+            NpcData[#NpcData + 1] = {
+                Name = mob.Name,
+                CFrame = mob.HumanoidRootPart.CFrame
+            }
+    
+            table.sort(NpcData, function(tableA, tableB)
+                return tableA.Name < tableB.Name
+            end)
+    
+        end
+    end
+    
+    local list = {}
+    local dict = {}
+    
+    for i, v in next, NpcData do
+        list[#list + 1] = v.Name
+        dict[v.Name] = v
+    end
+    
+    local NPCDropDown = Section:AddDropdown("Teleport", list, "TP", false, function(npc)
+        if dict[npc] then
+            tp(dict[npc].CFrame)
+        end
+    end)
+    
 
     
 Cronfake:CreateConfigSystem("right") --this is the config system
