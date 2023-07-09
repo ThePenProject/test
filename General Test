@@ -1676,6 +1676,181 @@ task.wait()
 
 
 
+local Camera = game:GetService("Workspace").CurrentCamera
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+
+local on = false
+
+
+function humanoid_esp(Character, _Parent)
+	local Text = Drawing.new("Text")
+	Text.Visible = false
+	Text.Center = true
+	Text.Outline = true
+	Text.Font = 3
+	Text.Color = Color3.fromRGB(255, 255, 255)
+	Text.Size = 25
+	local Text2 = Drawing.new("Text")
+	Text2.Visible = false
+	Text2.Center = true
+	Text2.Outline = true
+	Text2.Font = 3
+	Text2.Color = Color3.fromRGB(255, 255, 255)
+	Text2.Size = 16
+	local Text3 = Drawing.new("Text")
+	Text3.Visible = false
+	Text3.Center = true
+	Text3.Outline = true
+	Text3.Font = 3
+	Text3.Color = Color3.fromRGB(255, 255, 255)
+	Text3.Size = 16
+    
+
+	local RenderStepped
+	RenderStepped = RunService.Stepped:Connect(function()
+		if on then
+			if Character and Character.Parent ~= nil then
+				if Character:FindFirstChildWhichIsA("Part") then
+
+					local Pos, onScreen = Camera:WorldToViewportPoint(Character:FindFirstChildOfClass("Part").Position)
+
+					if onScreen and Character:FindFirstChild("Humanoid") then
+						local Humanoid = Character:FindFirstChild("Humanoid")
+						Text.Position = Vector2.new(Pos.X, Pos.Y -65)
+						Text2.Position = Vector2.new(Pos.X + 1, Pos.Y)
+						Text2.Text = "["..Character.Name.."]"
+						Text3.Position = Vector2.new(Pos.X + 1, Pos.Y - 40)
+						Text.Text = "[" .. math.floor(Humanoid.Health) .. "/" .. math.floor(Humanoid.MaxHealth) .. "]" .. "[" .. math.floor((Humanoid.Health / Humanoid.MaxHealth)*100) .. "%]"
+						if Character:FindFirstChildWhichIsA("Tool") then
+							Text3.Text = "["..Character:FindFirstChildWhichIsA("Tool").Name.."]"
+						else
+							Text3.Text = "[None]"
+						end
+						if Character:FindFirstChild("Wizard AI") then
+							Text2.Text = "[Mage]"
+                            Text2.Color = Color3.fromRGB(127, 0, 255)
+                            Text3.Text = ""
+
+						elseif Character:FindFirstChild("KnightModel") then
+							Text2.Text = "[Spectral Knight]"
+                            Text2.Color = Color3.fromRGB(160, 160, 160)
+                            Text3.Text = ""
+						elseif Character:FindFirstChild("Humanoid").MaxHealth == 2000000000 then
+							Text2.Text = "[Void Fly]"
+                            Text2.Color = Color3.fromRGB(0, 0, 0)
+							Text.Text = "[1]"
+                            Text3.Text = ""
+
+
+
+						elseif Character.Name == "_DungeonClone" and Character.Humanoid.MaxHealth <= 125 then
+							Text2.Text = "[Crawler]"
+                            Text2.Color = Color3.fromRGB(204, 102, 0)
+                            Text3.Text = ""
+
+                            
+						elseif Character.Name == "_DungeonClone" and Character.Humanoid.MaxHealth > 125 then
+                            Text3.Text = ""
+							Text2.Text = "[Goblin Champ]"
+                            Text2.Color = Color3.fromRGB(76, 153, 0)
+
+                                  
+						elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth >= 71  and  game:GetService("Workspace"):FindFirstChild("Angel Eye") then
+                            Text3.Text = ""
+							Text2.Text = "[Divine Sentinel]"
+                            Text2.Color = Color3.fromRGB(255, 255, 255)
+                        
+                        elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth == 14 and game:GetService("Workspace"):FindFirstChild("Worm") then
+                            Text3.Text = ""
+							Text2.Text = "[Worm]"
+                            Text2.Color = Color3.fromRGB(204, 102, 0)
+
+                        elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth == 16 then
+                            Text3.Text = ""
+							Text2.Text = "[Plague Wisps]"
+                            Text2.Color = Color3.fromRGB(255, 0, 255)
+
+
+						elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth >= 50 and game:GetService("Workspace"):FindFirstChild("Flame Beast") then
+                            Text3.Text = ""
+							Text2.Text = "[Inferno Sprite]"
+                            Text2.Color = Color3.fromRGB(255, 128, 0)
+
+
+                        elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth >= 58  and game:GetService("Workspace"):FindFirstChild("Dark Eye") then
+                            Text3.Text = ""
+							Text2.Text = "[Eclipse Orb]"
+                            Text2.Color = Color3.fromRGB(255, 51, 51)
+
+
+                        elseif Character.Name == "HITBOX_SIMULATION#" and Character.Humanoid.MaxHealth < 101 and Character.Humanoid.MaxHealth > 99 and game:GetService("Workspace"):FindFirstChild("Terra Mob") then
+                            Text3.Text = ""
+							Text2.Text = "[Goblin Tower]"
+                            Text2.Color = Color3.fromRGB(0, 204, 102)
+
+                        elseif Character.Name == "CorvusFight"  then
+							Text2.Text = "[Corvus]"
+                            Text3.Text = ""
+
+                        elseif Character.Name == "Guardian"  then
+							Text2.Text = "[Guardian]"
+                            Text3.Text = "[Assassin Quest]"
+                      
+                    
+
+
+
+						end
+						Text.Visible = true
+						Text2.Visible = true
+						Text3.Visible = true
+					else
+						Text.Visible = false
+						Text2.Visible = false
+						Text3.Visible = false
+					end
+				end
+			else
+				Text.Visible = false
+				Text2.Visible = false
+				Text3.Visible = false
+				Text:Remove()
+				Text2:Remove()
+				Text3:Remove()
+				RenderStepped:Disconnect()
+			end
+		else
+			Text.Visible = false
+			Text2.Visible = false
+			Text3.Visible = false
+		end
+	end)
+end
+
+for i,Descendant in pairs(workspace.Live:GetDescendants()) do
+	if Descendant:IsA("Humanoid") then
+		if Descendant.Parent.Name == game.Players.LocalPlayer.Name then
+			math.random(1,2)
+		else
+			humanoid_esp(Descendant.Parent, Descendant.Parent.Parent)
+		end
+	end
+end
+
+workspace.Live.DescendantAdded:Connect(function(Descendant)
+	if Descendant:IsA("Humanoid") then
+		if Descendant.Parent.Name == game.Players.LocalPlayer.Name then
+			math.random(1,2)
+		else
+			humanoid_esp(Descendant.Parent, Descendant.Parent.Parent)
+		end
+	end
+end)
+
+
+
+task.wait()
 
 
 
@@ -1873,6 +2048,17 @@ blatantnostun:AddKeybind()
 
 
 task.wait()
+
+
+local liveesp = Section4:AddToggle("Living ESP", false, function(v)
+    if v then
+        on = true
+                    else
+                    on = false
+                    end
+end)
+
+liveesp:AddKeybind()
 
 
 
